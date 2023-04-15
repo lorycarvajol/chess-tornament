@@ -1,0 +1,20 @@
+.
+├── controllers
+│   ├── __init__.py
+│   ├── player_controller.py
+│   ├── tournament_controller.py
+│   ├── tour_controller.py
+│   └── match_controller.py
+├── models
+│   ├── __init__.py
+│   ├── player.py
+│   ├── tournament.py
+│   ├── tour.py
+│   └── match.py
+├── views
+│   ├── __init__.py
+│   ├── main_menu.py
+│   └── utils.py
+├── data
+├
+
