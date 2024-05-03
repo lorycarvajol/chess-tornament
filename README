@@ -3,18 +3,21 @@
 │   ├── __init__.py
 │   ├── player_controller.py
 │   ├── tournament_controller.py
-│   ├── tour_controller.py
+│   ├── round_controller.py
 │   └── match_controller.py
 ├── models
 │   ├── __init__.py
 │   ├── player.py
 │   ├── tournament.py
-│   ├── tour.py
+│   ├── round.py
 │   └── match.py
 ├── views
 │   ├── __init__.py
 │   ├── main_menu.py
-│   └── utils.py
+|   ├── tournament_views.py
+|   ├── match_views.py
+│   └── player_views.py
 ├── data
-├
+|   ├── player_db.json
+|   ├── tournament_db.json
 

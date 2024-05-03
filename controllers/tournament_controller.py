@@ -1,9 +1,16 @@
-from tinydb import TinyDB, Query
 from models.tournament import Tournament
+from tinydb import TinyDB, Query
 
-db = TinyDB("data/db.json")
-tournaments_table = db.table("tournaments")
 
-def create_tournament(name, location, start_date, end_date, num_rounds=4, description=""):
-    tournament = Tournament(name, location, start_date, end_date, num_rounds, description)
-    tournaments_table.insert(tournament.__dict__)
+class TournamentController:
+    def __init__(self, db_path):
+        self.db = TinyDB(db_path)
+        self.tournaments = self.db.table("tournaments")
+
+    def add_tournament(self, name, location, date):
+        new_tournament = Tournament(name, location, date)
+        self.tournaments.insert(new_tournament.to_dict())
+        return new_tournament
+
+    def list_tournaments(self):
+        return self.tournaments.all()
