@@ -3,7 +3,6 @@ from datetime import datetime
 
 
 class Player:
-
     def __init__(self, first_name, last_name, date_of_birth, national_id):
         if not re.match("^[A-Za-z]+$", first_name):
             raise ValueError("Invalid first name. Please use alphabets only.")

@@ -1,9 +1,7 @@
 from InquirerPy import prompt
 from InquirerPy.utils import color_print
 from views.player_views import player_menu
-
-# Si vous avez d'autres menus, par exemple pour les tournois
-# from views.tournament_views import tournament_menu
+from views.tournament_views import tournament_menu
 
 
 def main_menu():
@@ -25,9 +23,9 @@ def main_menu():
 
         if result["menu"] == "player":
             player_menu()
-        # Décommentez le bloc suivant pour gérer les tournois
-        # elif result["menu"] == "tournament":
-        #     tournament_menu()
+
+        elif result["menu"] == "tournament":
+            tournament_menu()
         elif result["menu"] == "exit":
             color_print([("green", "Thank you for using the application. Goodbye!")])
             break
