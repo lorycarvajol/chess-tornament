@@ -1,6 +1,7 @@
 from InquirerPy import prompt
 from InquirerPy.utils import color_print
 from controllers.tournament_controller import TournamentController
+from models.player import Player
 import re
 
 # Initialisation du contrôleur avec le chemin vers la base de données
@@ -36,8 +37,9 @@ def add_tournament_form():
         },
     ]
     answers = prompt(questions)
-    tournament_controller.add_tournament(**answers)
+    tournament = tournament_controller.add_tournament(**answers)
     color_print([("green", "Tournament added successfully!")])
+    return tournament
 
 
 def list_tournaments():
@@ -52,12 +54,23 @@ def list_tournaments():
         color_print([("yellow", "No tournaments found.")])
 
 
+def start_tournament_round(tournament):
+    if tournament:
+        round = tournament.create_round()
+        color_print([("green", f"Round {round.round_number} started.")])
+        for match in round.matches:
+            print(f"Match between {match.player1.name} and {match.player2.name}")
+    else:
+        color_print([("red", "Tournament not found or no players added.")])
+
+
 def tournament_menu():
     while True:
         color_print([("blue", "\nTournament Menu")])
         options = [
             {"name": "Add Tournament", "value": "add"},
             {"name": "List Tournaments", "value": "list"},
+            {"name": "Start a Round", "value": "start_round"},
             {"name": "Return to Main Menu", "value": "return"},
         ]
         result = prompt(
@@ -70,9 +83,15 @@ def tournament_menu():
         )
 
         if result["action"] == "add":
-            add_tournament_form()
+            tournament = add_tournament_form()
         elif result["action"] == "list":
             list_tournaments()
+        elif result["action"] == "start_round":
+            tournament_name = input(
+                "Enter the name of the tournament to start a round: "
+            )
+            tournament = tournament_controller.find_tournament_by_name(tournament_name)
+            start_tournament_round(tournament)
         elif result["action"] == "return":
             break
 
