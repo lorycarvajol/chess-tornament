@@ -1,10 +1,10 @@
 from InquirerPy import prompt
 from InquirerPy.utils import color_print
-from views.player_views import add_player_form, list_players
-from views.tournament_views import (
-    add_tournament_form,
-    list_tournaments,
-    play_tournament,
+from commands.player_commands import AddPlayerCommand, ListPlayersCommand
+from commands.tournament_commands import (
+    AddTournamentCommand,
+    ListTournamentsCommand,
+    PlayTournamentCommand,
 )
 
 
@@ -52,22 +52,17 @@ def player_manager_menu():
         )["action"]
 
         if result == "add_player":
-            try:
-                add_player_form()
-            except Exception as e:
-                color_print([("red", f"Error adding player: {str(e)}")])
+            AddPlayerCommand().execute()
         elif result == "list_players":
-            list_players()
+            ListPlayersCommand().execute()
         elif result == "return":
             break
 
 
 def tournament_manager_menu():
     while True:
-        color_print([("blue", "\nTournament Manager Menu")])
         options = [
             {"name": "Add Tournament", "value": "add_tournament"},
-            {"name": "List Tournaments", "value": "list_tournaments"},
             {"name": "Play Tournament", "value": "play_tournament"},
             {"name": "Return to Main Menu", "value": "return"},
         ]
@@ -81,17 +76,8 @@ def tournament_manager_menu():
         )["action"]
 
         if result == "add_tournament":
-            try:
-                add_tournament_form()
-            except Exception as e:
-                color_print([("red", f"Error adding tournament: {str(e)}")])
-        elif result == "list_tournaments":
-            list_tournaments()
+            AddTournamentCommand().execute()
         elif result == "play_tournament":
-            play_tournament()
+            PlayTournamentCommand().execute()
         elif result == "return":
             break
-
-
-if __name__ == "__main__":
-    main_menu()

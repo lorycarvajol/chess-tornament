@@ -1,47 +1,28 @@
-from datetime import datetime
+import json
 
 
 class Player:
 
-    def __init__(self, first_name, last_name, date_of_birth, national_id):
-        """Initialiser un joueur avec les détails donnés."""
-        if not first_name or not last_name:
-            raise ValueError("First name and last name cannot be empty.")
-
+    def __init__(self, first_name, last_name, birthdate):
         self.first_name = first_name
         self.last_name = last_name
-
-        # Valider le format de la date
-        try:
-            self.date_of_birth = datetime.strptime(date_of_birth, "%d-%m-%Y").date()
-        except ValueError:
-            raise ValueError("Invalid date format. Use DD-MM-YYYY.")
-
-        # Valider l'identifiant national
-        if not national_id:
-            raise ValueError("National ID cannot be empty.")
-
-        self.national_id = national_id
+        self.birthdate = birthdate
 
     def to_dict(self):
-        """Convertir l'objet Player en dictionnaire pour la sérialisation JSON."""
         return {
             "first_name": self.first_name,
             "last_name": self.last_name,
-            "date_of_birth": self.date_of_birth.strftime("%d-%m-%Y"),
-            "national_id": self.national_id,
+            "birthdate": self.birthdate,
         }
 
-    @staticmethod
-    def from_dict(data):
-        """Créer un objet Player à partir d'un dictionnaire."""
-        return Player(
+    @classmethod
+    def from_dict(cls, data):
+        return cls(
             first_name=data["first_name"],
             last_name=data["last_name"],
-            date_of_birth=data["date_of_birth"],
-            national_id=data["national_id"],
+            birthdate=data["birthdate"],
         )
 
-    def __repr__(self):
-        """Afficher une représentation lisible de l'objet Player."""
-        return f"<Player: {self.first_name} {self.last_name}, DOB: {self.date_of_birth}, ID: {self.national_id}>"
+    def save(self, file_path):
+        with open(file_path, "w") as file:
+            json.dump(self.to_dict(), file)
