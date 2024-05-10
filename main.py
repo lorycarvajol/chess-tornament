@@ -1,37 +1,6 @@
-from InquirerPy import prompt
-from InquirerPy.utils import color_print
-from views.player_views import player_menu
-from views.tournament_views import tournament_menu
-
-
-def main_menu():
-    while True:
-        color_print([("blue", "\n=== Main Menu ===")])
-        options = [
-            {"name": "Player Management", "value": "player"},
-            {"name": "Tournament Management", "value": "tournament"},
-            {"name": "Exit", "value": "exit"},
-        ]
-        result = prompt(
-            {
-                "type": "list",
-                "name": "menu",
-                "message": "Please choose an option:",
-                "choices": options,
-            }
-        )
-
-        if result["menu"] == "player":
-            player_menu()
-
-        elif result["menu"] == "tournament":
-            tournament_menu()
-        elif result["menu"] == "exit":
-            color_print([("green", "Thank you for using the application. Goodbye!")])
-            break
-        else:
-            color_print([("red", "Invalid option, please try again.")])
-
+from colorama import init
+from views.main_menu import main_menu
 
 if __name__ == "__main__":
+    init(autoreset=True)
     main_menu()
