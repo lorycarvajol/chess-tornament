@@ -1,7 +1,11 @@
 from InquirerPy import prompt
 from InquirerPy.utils import color_print
 from commands.player_commands import AddPlayerCommand, ListPlayersCommand
-from commands.tournament_commands import AddTournamentCommand
+from commands.tournament_commands import (
+    AddTournamentCommand,
+    PlayTournamentCommand,
+    ListTournamentsCommand,
+)
 
 def main_menu():
     while True:
@@ -56,10 +60,10 @@ def player_manager_menu():
 
 def tournament_manager_menu():
     while True:
-        color_print([("blue", "\nTournament Manager Menu")])
         options = [
             {"name": "Add Tournament", "value": "add_tournament"},
             {"name": "Play Tournament", "value": "play_tournament"},
+            {"name": "List Tournaments", "value": "list_tournaments"},
             {"name": "Return to Main Menu", "value": "return"},
         ]
         result = prompt(
@@ -73,7 +77,10 @@ def tournament_manager_menu():
 
         if result == "add_tournament":
             AddTournamentCommand().execute()
-
+        elif result == "play_tournament":
+            PlayTournamentCommand().execute()
+        elif result == "list_tournaments":
+            ListTournamentsCommand().execute()
         elif result == "return":
             break
 

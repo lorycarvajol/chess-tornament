@@ -1,7 +1,49 @@
 [
     {
-        "name": "lolo",
+        "name": "Battle of Bordeaux",
+        "location": "Bordeaux",
+        "date": "15-08-2023",
+        "players": [],
+        "rounds": []
+    },
+    {
+        "name": "Nantes Naval Skirmish",
+        "location": "Nantes",
+        "date": "20-09-2023",
+        "players": [],
+        "rounds": []
+    },
+    {
+        "name": "Toulouse Tech Tournament",
+        "location": "Toulouse",
+        "date": "05-11-2023",
+        "players": [],
+        "rounds": []
+    },
+    {
+        "name": "Provence Poker Party",
+        "location": "Marseille",
+        "date": "12-12-2023",
+        "players": [],
+        "rounds": []
+    },
+    {
+        "name": "Champs-\u00c3\u2030lys\u00c3\u00a9es Chess Championship",
+        "location": "Paris",
+        "date": "01-01-2024",
+        "players": [],
+        "rounds": []
+    },
+    {
+        "name": "lugdunum connection",
         "location": "lyon",
+        "date": "10-10-2000",
+        "players": [],
+        "rounds": []
+    },
+    {
+        "name": "lolo",
+        "location": "lala",
         "date": "10-10-2000",
         "players": [],
         "rounds": []

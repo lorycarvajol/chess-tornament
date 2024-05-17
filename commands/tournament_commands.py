@@ -1,24 +1,36 @@
-from InquirerPy import prompt
-from controllers.tournament_controller import add_tournament
+# commands/tournament_commands.py
+from controllers.tournament_controller import (
+    add_tournament,
+    load_active_tournaments,
+    play_tournament,
+)
+from views.tournament_views import add_tournament_form, start_tournament_form
+from InquirerPy.utils import color_print
 
 
 class AddTournamentCommand:
     def execute(self):
-        # Collecter les données nécessaires pour créer un tournoi
-        questions = [
-            {"type": "input", "name": "name", "message": "Enter tournament name:"},
-            {
-                "type": "input",
-                "name": "location",
-                "message": "Enter tournament location:",
-            },
-            {
-                "type": "input",
-                "name": "date",
-                "message": "Enter tournament date (DD-MM-YYYY):",
-            },
-        ]
-        answers = prompt(questions)
+        add_tournament_form()
 
-        # Appeler la fonction pour ajouter un tournoi avec les données collectées
-        add_tournament(answers["name"], answers["location"], answers["date"])
+
+class PlayTournamentCommand:
+    def execute(self):
+        start_tournament_form()
+
+
+class ListTournamentsCommand:
+    def execute(self):
+        tournaments = load_active_tournaments()
+        if tournaments:
+            color_print([("cyan", "Active Tournaments:")])
+            for tournament in tournaments:
+                color_print(
+                    [
+                        (
+                            "yellow",
+                            f"{tournament.name} - {tournament.location} on {tournament.date}",
+                        )
+                    ]
+                )
+        else:
+            color_print([("red", "No active tournaments available.")])
