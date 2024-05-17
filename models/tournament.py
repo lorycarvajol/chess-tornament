@@ -1,32 +1,20 @@
-import json
-from models.player import Player
+from datetime import datetime
 
 
 class Tournament:
 
-    def __init__(self, name, location, date, players):
+    def __init__(self, name, location, date, players=None, rounds=None):
         self.name = name
         self.location = location
-        self.date = date
-        self.players = players
+        self.date = datetime.strptime(date, "%d-%m-%Y")
+        self.players = players if players else []
+        self.rounds = rounds if rounds else []
 
     def to_dict(self):
         return {
             "name": self.name,
             "location": self.location,
-            "date": self.date,
+            "date": self.date.strftime("%d-%m-%Y"),
             "players": [player.to_dict() for player in self.players],
+            "rounds": [round.to_dict() for round in self.rounds],
         }
-
-    @classmethod
-    def from_dict(cls, data):
-        return cls(
-            name=data["name"],
-            location=data["location"],
-            date=data["date"],
-            players=[Player.from_dict(p) for p in data["players"]],
-        )
-
-    def save(self, file_path):
-        with open(file_path, "w") as file:
-            json.dump(self.to_dict(), file)

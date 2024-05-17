@@ -1,77 +1,31 @@
-import os
 import json
-from colorama import Fore, Style
-from InquirerPy import prompt
+import os
+from models.tournament import Tournament
 
 TOURNAMENTS_FILE = "data/tournaments.json"
 
 
-def add_tournament_form():
-    """Ajouter un nouveau tournoi, y compris la sélection des joueurs participants."""
-    questions = [
-        {"type": "input", "name": "name", "message": "Tournament name:"},
-        {"type": "input", "name": "location", "message": "Location:"},
-        {
-            "type": "input",
-            "name": "date",
-            "message": "Date (DD-MM-YYYY):",
-            "validate": lambda text: "Date is required" if not text else True,
-        },
-    ]
+def load_tournaments():
+    # Assurer la création du dossier data et du fichier JSON s'ils n'existent pas
+    os.makedirs(os.path.dirname(TOURNAMENTS_FILE), exist_ok=True)
+    if not os.path.exists(TOURNAMENTS_FILE):
+        with open(TOURNAMENTS_FILE, "w") as f:
+            f.write("[]")  # Écrire un tableau vide en JSON
 
-    answers = prompt(questions)
+    with open(TOURNAMENTS_FILE, "r") as file:
+        data = file.read()
+        if not data:  # Vérifier si le fichier est vide
+            return []
+        return [Tournament(**tournament) for tournament in json.loads(data)]
 
-    # Charger la liste de joueurs depuis un fichier existant
-    players_file = "data/players.json"
-    if os.path.exists(players_file):
-        with open(players_file, "r") as file:
-            players = json.load(file)
-    else:
-        players = []
 
-    if not players:
-        print(
-            Fore.YELLOW
-            + "No players found. Please add players first."
-            + Style.RESET_ALL
-        )
-        return
+def save_tournaments(tournaments):
+    with open(TOURNAMENTS_FILE, "w") as file:
+        json.dump([tournament.to_dict() for tournament in tournaments], file, indent=4)
 
-    # Demander la sélection des joueurs pour le tournoi
-    player_choices = [
-        {"name": f"{p['first_name']} {p['last_name']}", "value": p} for p in players
-    ]
-    selected_prompt = prompt(
-        {
-            "type": "checkbox",
-            "name": "players",
-            "message": "Select players for this tournament:",
-            "choices": player_choices,
-        }
-    )
 
-    selected_players = selected_prompt["players"]
-
-    if not selected_players:
-        print(Fore.YELLOW + "No players selected for the tournament." + Style.RESET_ALL)
-        return
-
-    # Créez un dictionnaire pour représenter le tournoi et les joueurs sélectionnés
-    tournament = {
-        "name": answers["name"],
-        "location": answers["location"],
-        "date": answers["date"],
-        "players": selected_players,
-    }
-
-    # Enregistrez le tournoi dans un fichier JSON
-    os.makedirs("data/tournaments", exist_ok=True)
-    file_name = f"data/tournaments/{tournament['name']}.json"
-    with open(file_name, "w") as file:
-        json.dump(tournament, file, indent=4)
-
-    print(
-        Fore.GREEN
-        + f"Tournament '{tournament['name']}' created successfully!"
-        + Style.RESET_ALL
-    )
+def add_tournament(name, location, date):
+    tournaments = load_tournaments()
+    tournament = Tournament(name, location, date)
+    tournaments.append(tournament)
+    save_tournaments(tournaments)
