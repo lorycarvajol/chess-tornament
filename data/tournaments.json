@@ -4,48 +4,55 @@
         "location": "Bordeaux",
         "date": "15-08-2023",
         "players": [],
-        "rounds": []
+        "is_finished": false
     },
     {
         "name": "Nantes Naval Skirmish",
         "location": "Nantes",
         "date": "20-09-2023",
         "players": [],
-        "rounds": []
+        "is_finished": false
     },
     {
         "name": "Toulouse Tech Tournament",
         "location": "Toulouse",
         "date": "05-11-2023",
         "players": [],
-        "rounds": []
+        "is_finished": false
     },
     {
         "name": "Provence Poker Party",
         "location": "Marseille",
         "date": "12-12-2023",
         "players": [],
-        "rounds": []
+        "is_finished": false
     },
     {
         "name": "Champs-\u00c3\u2030lys\u00c3\u00a9es Chess Championship",
         "location": "Paris",
         "date": "01-01-2024",
         "players": [],
-        "rounds": []
+        "is_finished": false
     },
     {
         "name": "lugdunum connection",
         "location": "lyon",
         "date": "10-10-2000",
         "players": [],
-        "rounds": []
+        "is_finished": false
     },
     {
         "name": "lolo",
         "location": "lala",
         "date": "10-10-2000",
         "players": [],
-        "rounds": []
+        "is_finished": false
+    },
+    {
+        "name": "lolo",
+        "location": "lala",
+        "date": "10-10-2000",
+        "players": [],
+        "is_finished": false
     }
 ]

@@ -1,10 +1,9 @@
 # models/tournament.py
-
 from datetime import datetime
+from models.player import Player
 
 
 class Tournament:
-
     def __init__(self, name, location, date, players=None, is_finished=False):
         self.name = name
         self.location = location
@@ -12,8 +11,15 @@ class Tournament:
             self.date = datetime.strptime(date, "%d-%m-%Y").date()
         except ValueError:
             raise ValueError("Invalid date format. Please use DD-MM-YYYY format.")
-        self.players = players if players is not None else []
+        self.players = [
+            Player.from_dict(p) if isinstance(p, dict) else p for p in (players or [])
+        ]
         self.is_finished = is_finished
+
+    def add_player(self, player):
+        if isinstance(player, dict):
+            player = Player.from_dict(player)
+        self.players.append(player)
 
     def to_dict(self):
         return {
@@ -33,3 +39,7 @@ class Tournament:
             players=[Player.from_dict(p) for p in data.get("players", [])],
             is_finished=data.get("is_finished", False),
         )
+
+
+def add_player(self, player):
+    self.players.append(player)

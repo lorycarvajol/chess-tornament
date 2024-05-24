@@ -1,13 +1,14 @@
 # views/tournament_views.py
 
-from controllers.tournament_controller import (
-    load_active_tournaments,
-    play_tournament,
-    add_tournament,
-)
-from controllers.player_controller import load_all_players
 from InquirerPy import prompt
 from InquirerPy.utils import color_print
+from controllers.tournament_controller import (
+    load_active_tournaments,
+    get_tournament_by_name,
+    update_tournament,
+    add_tournament,
+)
+from controllers.player_controller import get_player_by_id, load_all_players
 
 
 def tournament_manager_menu():
@@ -55,8 +56,8 @@ def start_tournament_form():
         color_print([("red", "No active tournaments available.")])
         return
 
-    tournament_choices = [{"name": t.name, "value": t.name} for t in tournaments]
-    tournament_name = prompt(
+    tournament_choices = [{"name": t.name, "value": t} for t in tournaments]
+    selected_tournament = prompt(
         {
             "type": "list",
             "name": "tournament",
@@ -65,15 +66,16 @@ def start_tournament_form():
         }
     )["tournament"]
 
-    tournament = play_tournament(tournament_name)
-    color_print([("cyan", f"Starting tournament: {tournament.name}")])
-
-    # Continue with player selection
     players = load_all_players()
+    if not players:
+        color_print([("yellow", "No players available to add to the tournament.")])
+        return
+
     player_choices = [
-        {"name": f"{p.first_name} {p.last_name}", "value": p} for p in players
+        {"name": f"{player.first_name} {player.last_name}", "value": player.id}
+        for player in players
     ]
-    selected_players = prompt(
+    selected_player_ids = prompt(
         {
             "type": "checkbox",
             "name": "players",
@@ -82,12 +84,19 @@ def start_tournament_form():
         }
     )["players"]
 
-    # Here, you would ideally add the selected players to the tournament and save it
+    if not selected_player_ids:
+        color_print([("yellow", "No players selected for the tournament.")])
+        return
+
+    # Mise à jour des joueurs dans le tournoi
+    selected_tournament.players.extend(selected_player_ids)
+    update_tournament(selected_tournament)
+
     color_print(
         [
             (
                 "green",
-                f"Players selected for the tournament: {', '.join([p['first_name'] + ' ' + p['last_name'] for p in selected_players])}",
+                f"Tournament {selected_tournament.name} updated with selected players!",
             )
         ]
     )
