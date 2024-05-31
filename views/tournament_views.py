@@ -3,12 +3,20 @@
 from InquirerPy import prompt
 from InquirerPy.utils import color_print
 from controllers.tournament_controller import (
-    load_active_tournaments,
-    get_tournament_by_name,
-    update_tournament,
     add_tournament,
+    load_active_tournaments,
+    update_tournament,
 )
-from controllers.player_controller import get_player_by_id, load_all_players
+from datetime import datetime
+
+
+def validate_date_input(date_text):
+    """Validate the date input to ensure it matches the required format."""
+    try:
+        datetime.strptime(date_text, "%d-%m-%Y")
+        return True
+    except ValueError:
+        return "Invalid date format, use DD-MM-YYYY."  # Retournez le message d'erreur directement
 
 
 def tournament_manager_menu():
@@ -46,8 +54,13 @@ def add_tournament_form():
         },
     ]
     answers = prompt(questions)
-    add_tournament(answers["name"], answers["location"], answers["date"])
-    color_print([("green", f"Tournament '{answers['name']}' created successfully!")])
+    try:
+        add_tournament(answers["name"], answers["location"], answers["date"])
+        color_print(
+            [("green", f"Tournament '{answers['name']}' created successfully!")]
+        )
+    except ValueError as e:
+        color_print([("red", str(e))])
 
 
 def start_tournament_form():
@@ -56,7 +69,7 @@ def start_tournament_form():
         color_print([("red", "No active tournaments available.")])
         return
 
-    tournament_choices = [{"name": t.name, "value": t} for t in tournaments]
+    tournament_choices = [{"name": t.name, "value": t.name} for t in tournaments]
     selected_tournament = prompt(
         {
             "type": "list",
@@ -66,37 +79,5 @@ def start_tournament_form():
         }
     )["tournament"]
 
-    players = load_all_players()
-    if not players:
-        color_print([("yellow", "No players available to add to the tournament.")])
-        return
-
-    player_choices = [
-        {"name": f"{player.first_name} {player.last_name}", "value": player.id}
-        for player in players
-    ]
-    selected_player_ids = prompt(
-        {
-            "type": "checkbox",
-            "name": "players",
-            "message": "Select players for this tournament:",
-            "choices": player_choices,
-        }
-    )["players"]
-
-    if not selected_player_ids:
-        color_print([("yellow", "No players selected for the tournament.")])
-        return
-
-    # Mise à jour des joueurs dans le tournoi
-    selected_tournament.players.extend(selected_player_ids)
     update_tournament(selected_tournament)
-
-    color_print(
-        [
-            (
-                "green",
-                f"Tournament {selected_tournament.name} updated with selected players!",
-            )
-        ]
-    )
+    color_print([("green", f"Tournament {selected_tournament} started!")])

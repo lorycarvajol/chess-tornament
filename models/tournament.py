@@ -1,10 +1,12 @@
-# models/tournament.py
 from datetime import datetime
 from models.player import Player
 
 
 class Tournament:
+    _id_counter = 0  # Attribut de classe pour suivre l'ID actuel
+
     def __init__(self, name, location, date, players=None, is_finished=False):
+        self.id = Tournament._get_next_id()
         self.name = name
         self.location = location
         try:
@@ -16,6 +18,11 @@ class Tournament:
         ]
         self.is_finished = is_finished
 
+    @classmethod
+    def _get_next_id(cls):
+        cls._id_counter += 1
+        return cls._id_counter
+
     def add_player(self, player):
         if isinstance(player, dict):
             player = Player.from_dict(player)
@@ -23,6 +30,7 @@ class Tournament:
 
     def to_dict(self):
         return {
+            "id": self.id,
             "name": self.name,
             "location": self.location,
             "date": self.date.strftime("%d-%m-%Y"),
@@ -32,14 +40,14 @@ class Tournament:
 
     @staticmethod
     def from_dict(data):
-        return Tournament(
+        tournament = Tournament(
             name=data["name"],
             location=data["location"],
             date=data["date"],
             players=[Player.from_dict(p) for p in data.get("players", [])],
             is_finished=data.get("is_finished", False),
         )
-
-
-def add_player(self, player):
-    self.players.append(player)
+        tournament.id = data.get(
+            "id", Tournament._get_next_id()
+        )  # Set ID or get a new one if missing
+        return tournament
