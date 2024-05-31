@@ -28,9 +28,7 @@ def get_next_tournament_id():
 
 def add_tournament(name, location, date):
     tournaments = load_tournaments()
-    new_tournament = Tournament(
-        name, location, date
-    )  # Assurez-vous que l'ordre est correct ici
+    new_tournament = Tournament(name, location, date)
     tournaments.append(new_tournament)
     save_tournaments(tournaments)
 
@@ -49,6 +47,11 @@ def get_tournament_by_name(name):
     return next((t for t in tournaments if t.name == name), None)
 
 
+def get_tournament_by_id(tournament_id):
+    tournaments = load_tournaments()
+    return next((t for t in tournaments if t.id == tournament_id), None)
+
+
 def load_active_tournaments():
     return [
         tournament for tournament in load_tournaments() if not tournament.is_finished
@@ -56,12 +59,20 @@ def load_active_tournaments():
 
 
 def play_tournament(tournament_name, player_ids):
-    tournaments = load_tournaments()
-    tournament = next((t for t in tournaments if t.name == tournament_name), None)
+    # Récupérer le tournoi par son nom
+    tournament = get_tournament_by_name(tournament_name)
     if not tournament:
-        raise ValueError("Tournament not found")
-    tournament.players = [get_player_by_id(pid) for pid in player_ids]
+        raise ValueError(f"Tournament '{tournament_name}' not found")
+
+    players = [get_player_by_id(pid) for pid in player_ids]
+    valid_players = [player for player in players if player]
+
+    if not valid_players:
+        raise Exception("No valid players found with the provided IDs")
+
+    tournament.players.extend(valid_players)
     update_tournament(tournament)
+
     return tournament
 
 
