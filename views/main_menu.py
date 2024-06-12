@@ -1,15 +1,10 @@
 from InquirerPy import prompt
-from InquirerPy.utils import color_print
-from commands.player_commands import AddPlayerCommand, ListPlayersCommand
-from commands.tournament_commands import (
-    AddTournamentCommand,
-    PlayTournamentCommand,
-    ListTournamentsCommand,
-)
+from views.tournament_views import tournament_manager_menu
+from views.player_views import player_manager_menu
+
 
 def main_menu():
     while True:
-        color_print([("blue", "\nMain Menu")])
         options = [
             {"name": "Player Manager", "value": "player_manager"},
             {"name": "Tournament Manager", "value": "tournament_manager"},
@@ -29,61 +24,4 @@ def main_menu():
         elif result == "tournament_manager":
             tournament_manager_menu()
         elif result == "exit":
-            color_print([("red", "Exiting the application...")])
             break
-
-
-def player_manager_menu():
-    while True:
-        color_print([("blue", "\nPlayer Manager Menu")])
-        options = [
-            {"name": "Add Player", "value": "add_player"},
-            {"name": "List Players", "value": "list_players"},
-            {"name": "Return to Main Menu", "value": "return"},
-        ]
-        result = prompt(
-            {
-                "type": "list",
-                "name": "action",
-                "message": "Select an option:",
-                "choices": options,
-            }
-        )["action"]
-
-        if result == "add_player":
-            AddPlayerCommand().execute()
-        elif result == "list_players":
-            ListPlayersCommand().execute()
-        elif result == "return":
-            break
-
-
-def tournament_manager_menu():
-    while True:
-        options = [
-            {"name": "Add Tournament", "value": "add_tournament"},
-            {"name": "Play Tournament", "value": "play_tournament"},
-            {"name": "List Tournaments", "value": "list_tournaments"},
-            {"name": "Return to Main Menu", "value": "return"},
-        ]
-        result = prompt(
-            {
-                "type": "list",
-                "name": "action",
-                "message": "Select an option:",
-                "choices": options,
-            }
-        )["action"]
-
-        if result == "add_tournament":
-            AddTournamentCommand().execute()
-        elif result == "play_tournament":
-            PlayTournamentCommand().execute()
-        elif result == "list_tournaments":
-            ListTournamentsCommand().execute()
-        elif result == "return":
-            break
-
-
-if __name__ == "__main__":
-    main_menu()

@@ -1,16 +1,12 @@
-# views/tournament_views.py
-
 from InquirerPy import prompt
 from InquirerPy.utils import color_print
 from controllers.tournament_controller import (
-    add_tournament,
     load_active_tournaments,
-    get_tournament_by_name,
-    update_tournament,
+    get_tournament_by_id,
+    add_tournament,
 )
-from controllers.player_controller import load_all_players, get_player_by_id
-from controllers.tournament_session_controller import start_tournament_session
-
+from controllers.player_controller import load_all_players
+from controllers.tournament_session_controller import add_players_to_tournament_session
 from datetime import datetime
 
 
@@ -25,8 +21,10 @@ def validate_date_input(date_text):
 def tournament_manager_menu():
     while True:
         options = [
-            {"name": "Add Tournament", "value": "add"},
-            {"name": "Start a Tournament", "value": "start"},
+            {"name": "Add Tournament", "value": "add_tournament"},
+            {"name": "Play Tournament", "value": "play_tournament"},
+            {"name": "Add Players to Tournament", "value": "add_players_to_tournament"},
+            {"name": "List Tournaments", "value": "list_tournaments"},
             {"name": "Return to Main Menu", "value": "return"},
         ]
         result = prompt(
@@ -38,10 +36,14 @@ def tournament_manager_menu():
             }
         )["action"]
 
-        if result == "add":
+        if result == "add_tournament":
             add_tournament_form()
-        elif result == "start":
+        elif result == "play_tournament":
             start_tournament_form()
+        elif result == "add_players_to_tournament":
+            add_players_to_tournament_form()
+        elif result == "list_tournaments":
+            list_tournaments()
         elif result == "return":
             break
 
@@ -67,24 +69,27 @@ def add_tournament_form():
         color_print([("red", str(e))])
 
 
-def start_tournament_form():
+def add_players_to_tournament_form():
     tournaments = load_active_tournaments()
     if not tournaments:
         color_print([("red", "No active tournaments available.")])
         return
 
-    tournament_choices = [{"name": t.name, "value": t} for t in tournaments]
-    selected_tournament = prompt(
+    tournament_choices = [{"name": t.name, "value": t.id} for t in tournaments]
+    selected_tournament_id = prompt(
         {
             "type": "list",
             "name": "tournament",
-            "message": "Choose a tournament to start:",
+            "message": "Choose a tournament to add players:",
             "choices": tournament_choices,
         }
     )["tournament"]
 
-    tournament = get_tournament_by_name(selected_tournament)
     players = load_all_players()
+    if not players:
+        color_print([("yellow", "No players available.")])
+        return
+
     player_choices = [
         {"name": f"{p.first_name} {p.last_name}", "value": p.id} for p in players
     ]
@@ -101,10 +106,32 @@ def start_tournament_form():
         color_print([("yellow", "No players selected for the tournament.")])
         return
 
-    try:
-        session = start_tournament_session(tournament.name, selected_player_ids)
+    session = add_players_to_tournament_session(
+        selected_tournament_id, selected_player_ids
+    )
+    color_print(
+        [
+            (
+                "green",
+                f"Players added to tournament session with ID {session.tournament_id}.",
+            )
+        ]
+    )
+
+
+def list_tournaments():
+    tournaments = load_active_tournaments()
+    if not tournaments:
+        color_print([("yellow", "No active tournaments found.")])
+        return
+
+    color_print([("cyan", "Active Tournaments:")])
+    for tournament in tournaments:
         color_print(
-            [("green", f"Tournament {tournament.name} started with selected players!")]
+            [
+                (
+                    "cyan",
+                    f"{tournament.id}: {tournament.name} - {tournament.location} on {tournament.date.strftime('%d-%m-%Y')}",
+                )
+            ]
         )
-    except Exception as e:
-        color_print([("red", str(e))])

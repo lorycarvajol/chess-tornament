@@ -1,14 +1,12 @@
-# models/player.py
 import json
 
 
 class Player:
-
     def __init__(self, first_name, last_name, birthdate, player_id=None):
         self.first_name = first_name
         self.last_name = last_name
         self.birthdate = birthdate
-        self.id = player_id  # Ensure players have an ID attribute
+        self.id = player_id
 
     def to_dict(self):
         return {
@@ -21,8 +19,8 @@ class Player:
     @classmethod
     def from_dict(cls, data):
         return cls(
-            data["first_name"],
-            data["last_name"],
-            data["birthdate"],
-            data.get("id"),  # Safely load the ID if it exists
+            first_name=data["first_name"],
+            last_name=data["last_name"],
+            birthdate=data["birthdate"],
+            player_id=data.get("id"),
         )

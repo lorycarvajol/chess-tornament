@@ -1,0 +1,74 @@
+[
+    {
+        "tournament_id": 1,
+        "tournament_name": "Battle of Bordeaux",
+        "location": "Bordeaux",
+        "date": "15-08-2023",
+        "is_active": true,
+        "players": [
+            {
+                "player_id": 2,
+                "first_name": "Anna",
+                "last_name": "Lytics",
+                "score": 0
+            },
+            {
+                "player_id": 3,
+                "first_name": "Bill",
+                "last_name": "Board",
+                "score": 0
+            },
+            {
+                "player_id": 4,
+                "first_name": "Claire",
+                "last_name": "Voyant",
+                "score": 0
+            },
+            {
+                "player_id": 5,
+                "first_name": "Earl",
+                "last_name": "Lee Riser",
+                "score": 0
+            }
+        ]
+    },
+    {
+        "tournament_id": 4,
+        "tournament_name": "Provence Poker Party",
+        "location": "Marseille",
+        "date": "12-12-2023",
+        "is_active": true,
+        "players": [
+            {
+                "player_id": 1,
+                "first_name": "Ella",
+                "last_name": "Vator",
+                "score": 0
+            },
+            {
+                "player_id": 2,
+                "first_name": "Anna",
+                "last_name": "Lytics",
+                "score": 0
+            },
+            {
+                "player_id": 3,
+                "first_name": "Bill",
+                "last_name": "Board",
+                "score": 0
+            },
+            {
+                "player_id": 4,
+                "first_name": "Claire",
+                "last_name": "Voyant",
+                "score": 0
+            },
+            {
+                "player_id": 5,
+                "first_name": "Earl",
+                "last_name": "Lee Riser",
+                "score": 0
+            }
+        ]
+    }
+]
