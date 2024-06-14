@@ -1,44 +1,40 @@
 import json
 import os
-from models.tournament import Tournament
-
-TOURNAMENTS_FILE = "data/tournaments.json"
 
 
-def load_tournaments():
-    if not os.path.exists(TOURNAMENTS_FILE):
-        return []
-    with open(TOURNAMENTS_FILE, "r") as file:
-        return [Tournament.from_dict(data) for data in json.load(file)]
+class TournamentController:
+    def __init__(self, file_path):
+        self.file_path = file_path
+        self.ensure_file_exists()
 
+    def ensure_file_exists(self):
+        if not os.path.exists(self.file_path) or os.stat(self.file_path).st_size == 0:
+            with open(self.file_path, "w") as f:
+                json.dump([], f)
 
-def save_tournaments(tournaments):
-    with open(TOURNAMENTS_FILE, "w") as file:
-        json.dump([tournament.to_dict() for tournament in tournaments], file, indent=4)
+    def load_data(self):
+        with open(self.file_path, "r") as f:
+            try:
+                return json.load(f)
+            except json.JSONDecodeError:
+                return []
 
+    def save_data(self, data):
+        with open(self.file_path, "w") as f:
+            json.dump(data, f, indent=4)
 
-def add_tournament(name, location, date):
-    tournaments = load_tournaments()
-    new_tournament = Tournament(name, location, date)
-    tournaments.append(new_tournament)
-    save_tournaments(tournaments)
+    def add_tournament(self, name, location, date):
+        data = self.load_data()
+        new_id = max([t["id"] for t in data], default=0) + 1
+        new_tournament = {
+            "id": new_id,
+            "name": name,
+            "location": location,
+            "date": date,
+            "is_finished": False,
+        }
+        data.append(new_tournament)
+        self.save_data(data)
 
-
-def update_tournament(updated_tournament):
-    tournaments = load_tournaments()
-    for index, tournament in enumerate(tournaments):
-        if tournament.id == updated_tournament.id:
-            tournaments[index] = updated_tournament
-            break
-    save_tournaments(tournaments)
-
-
-def get_tournament_by_id(tournament_id):
-    tournaments = load_tournaments()
-    return next((t for t in tournaments if t.id == tournament_id), None)
-
-
-def load_active_tournaments():
-    return [
-        tournament for tournament in load_tournaments() if not tournament.is_finished
-    ]
+    def list_tournaments(self):
+        return self.load_data()

@@ -30,7 +30,8 @@
                 "last_name": "Lee Riser",
                 "score": 0
             }
-        ]
+        ],
+        "id": 2
     },
     {
         "tournament_id": 4,
@@ -68,7 +69,79 @@
                 "first_name": "Earl",
                 "last_name": "Lee Riser",
                 "score": 0
+            },
+            {
+                "player_id": 1,
+                "first_name": "Ella",
+                "last_name": "Vator",
+                "score": 0
+            },
+            {
+                "player_id": 2,
+                "first_name": "Anna",
+                "last_name": "Lytics",
+                "score": 0
+            },
+            {
+                "player_id": 5,
+                "first_name": "Earl",
+                "last_name": "Lee Riser",
+                "score": 0
+            },
+            {
+                "player_id": 6,
+                "first_name": "Gail",
+                "last_name": "Forcewind",
+                "score": 0
+            },
+            {
+                "player_id": 7,
+                "first_name": "Paige",
+                "last_name": "Turner",
+                "score": 0
             }
-        ]
+        ],
+        "id": 3
+    },
+    {
+        "id": 1,
+        "tournament_id": 1,
+        "players": [
+            {
+                "player_id": 1,
+                "first_name": "Ella",
+                "last_name": "Vator",
+                "score": 0
+            },
+            {
+                "player_id": 2,
+                "first_name": "Anna",
+                "last_name": "Lytics",
+                "score": 0
+            },
+            {
+                "player_id": 3,
+                "first_name": "Bill",
+                "last_name": "Board",
+                "score": 0
+            },
+            {
+                "player_id": 4,
+                "first_name": "Claire",
+                "last_name": "Voyant",
+                "score": 0
+            }
+        ],
+        "is_active": true
+    },
+    {
+        "id": 4,
+        "tournament_id": 2,
+        "player_ids": [
+            1,
+            2,
+            3
+        ],
+        "is_active": true
     }
 ]

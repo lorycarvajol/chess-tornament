@@ -2,9 +2,10 @@ import json
 import os
 
 
-class PlayerController:
-    def __init__(self, file_path):
-        self.file_path = file_path
+class TournamentRoundModel:
+    def __init__(self, data_path):
+        self.data_path = data_path
+        self.file_path = os.path.join(self.data_path, "tournament_round.json")
         self.ensure_file_exists()
 
     def ensure_file_exists(self):
@@ -13,6 +14,7 @@ class PlayerController:
                 json.dump([], f)
 
     def load_data(self):
+        self.ensure_file_exists()
         with open(self.file_path, "r") as f:
             try:
                 return json.load(f)
@@ -22,18 +24,3 @@ class PlayerController:
     def save_data(self, data):
         with open(self.file_path, "w") as f:
             json.dump(data, f, indent=4)
-
-    def add_player(self, first_name, last_name, birthdate):
-        data = self.load_data()
-        new_id = max([p["id"] for p in data], default=0) + 1
-        new_player = {
-            "id": new_id,
-            "first_name": first_name,
-            "last_name": last_name,
-            "birthdate": birthdate,
-        }
-        data.append(new_player)
-        self.save_data(data)
-
-    def list_players(self):
-        return self.load_data()

@@ -1,45 +1,47 @@
 import json
 import os
-from models.tournament_session import TournamentSession
-from controllers.tournament_controller import get_tournament_by_id
-from controllers.player_controller import get_player_by_id
-
-SESSIONS_FILE = "data/tournament_sessions.json"
 
 
-def load_sessions():
-    if not os.path.exists(SESSIONS_FILE):
-        return []
-    with open(SESSIONS_FILE, "r") as file:
-        sessions_data = json.load(file)
-        return [TournamentSession.from_dict(session) for session in sessions_data]
+class TournamentSessionController:
+    def __init__(self, file_path):
+        self.file_path = file_path
+        self.ensure_file_exists()
 
+    def ensure_file_exists(self):
+        if not os.path.exists(self.file_path) or os.stat(self.file_path).st_size == 0:
+            with open(self.file_path, "w") as f:
+                json.dump([], f)
 
-def save_sessions(sessions):
-    with open(SESSIONS_FILE, "w") as file:
-        json.dump([session.to_dict() for session in sessions], file, indent=4)
+    def load_data(self):
+        with open(self.file_path, "r") as f:
+            try:
+                sessions = json.load(f)
+                # Ensure each session has an 'id' field
+                for session in sessions:
+                    if "id" not in session:
+                        session["id"] = self.get_next_id(sessions)
+                return sessions
+            except json.JSONDecodeError:
+                return []
 
+    def save_data(self, data):
+        with open(self.file_path, "w") as f:
+            json.dump(data, f, indent=4)
 
-def add_players_to_tournament_session(tournament_id, player_ids):
-    sessions = load_sessions()
-    tournament = get_tournament_by_id(tournament_id)
-    if not tournament:
-        raise ValueError("Tournament not found")
+    def get_next_id(self, sessions):
+        if not sessions:
+            return 1
+        max_id = max(session.get("id", 0) for session in sessions)
+        return max_id + 1
 
-    session = next((s for s in sessions if s.tournament_id == tournament_id), None)
-    if not session:
-        session = TournamentSession(
-            tournament_id=tournament.id,
-            tournament_name=tournament.name,
-            location=tournament.location,
-            date=tournament.date.strftime("%d-%m-%Y"),
-        )
-        sessions.append(session)
-
-    for player_id in player_ids:
-        player = get_player_by_id(player_id)
-        if player:
-            session.add_player(player)
-
-    save_sessions(sessions)
-    return session
+    def start_tournament_session(self, tournament_id, player_ids):
+        sessions = self.load_data()
+        new_session = {
+            "id": self.get_next_id(sessions),
+            "tournament_id": tournament_id,
+            "player_ids": player_ids,
+            "is_active": True,
+        }
+        sessions.append(new_session)
+        self.save_data(sessions)
+        return new_session
