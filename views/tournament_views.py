@@ -61,6 +61,7 @@ def list_tournaments():
 
 
 def add_players_to_tournament():
+    color_print([("cyan", "\nAdd players to an existing tournament.")])
     tournaments = tournament_controller.list_tournaments()
     if not tournaments:
         color_print([("red", "No tournaments available.")])
@@ -100,15 +101,16 @@ def add_players_to_tournament():
         color_print([("yellow", "No players selected for the tournament.")])
         return
 
-    selected_tournament = next(
-        t for t in tournaments if t["id"] == selected_tournament_id
-    )
-    selected_players = [p for p in players if p["id"] in selected_player_ids]
+    session_controller = TournamentSessionController("data")
     session = session_controller.start_tournament_session(
-        selected_tournament, selected_players
+        selected_tournament_id, selected_player_ids
     )
+
     color_print([("green", f"Tournament session started with ID {session['id']}")])
 
+    session_controller.start_tournament_rounds(
+        session["id"], selected_player_ids, players
+    )
 
 def tournament_menu():
     while True:

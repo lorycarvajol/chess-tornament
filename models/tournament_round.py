@@ -1,16 +1,15 @@
-import json
-import os
 import itertools
 import random
+import json
+import os
 from datetime import datetime
-from InquirerPy import prompt
 from fpdf import FPDF
-
+from InquirerPy import prompt
 
 class TournamentRoundModel:
     def __init__(self, data_path):
         self.data_path = data_path
-        self.file_path = os.path.join(self.data_path, "tournament_rounds.json")
+        self.file_path = os.path.join(self.data_path, "tournament_round.json")
         self.ensure_file_exists()
 
     def ensure_file_exists(self):
@@ -45,9 +44,12 @@ class TournamentRoundModel:
             for match in matches:
                 player1 = self.get_player_name(match[0], players)
                 player2 = self.get_player_name(match[1], players)
+
+                # Ask the user to select the winner
                 winner_name = self.select_match_winner(player1, player2)
                 winner_id = match[0] if winner_name == player1 else match[1]
                 player_scores[winner_id] += 1
+
                 round_results.append(
                     {"player1": match[0], "player2": match[1], "winner": winner_id}
                 )
@@ -66,9 +68,24 @@ class TournamentRoundModel:
 
             round_number += 1
 
-        self.display_results(player_scores, players, rounds)
+        # Print final results
+        self.print_final_results(player_scores, players, rounds)
+
+        # Generate PDF report
         self.generate_pdf_report(session_id, player_scores, players, rounds)
         return player_scores, rounds
+
+    def select_match_winner(self, player1, player2):
+        question = [
+            {
+                "type": "list",
+                "name": "winner",
+                "message": f"Select the winner between {player1} and {player2}:",
+                "choices": [player1, player2],
+            }
+        ]
+        answer = prompt(question)
+        return answer["winner"]
 
     def get_player_name(self, player_id, players):
         for player in players:
@@ -76,36 +93,24 @@ class TournamentRoundModel:
                 return f"{player['first_name']} {player['last_name']}"
         return "Unknown Player"
 
-    def select_match_winner(self, player1, player2):
-        winner = prompt(
-            [
-                {
-                    "type": "list",
-                    "name": "winner",
-                    "message": f"Select the winner between {player1} and {player2}:",
-                    "choices": [player1, player2],
-                }
-            ]
-        )["winner"]
-        return winner
-
-    def display_results(self, player_scores, players, rounds):
+    def print_final_results(self, player_scores, players, rounds):
         print("\nTournament Results:")
         print("Final Scores:")
         for player_id, score in player_scores.items():
             player_name = self.get_player_name(player_id, players)
             print(f"{player_name}: {score} points")
+
         winner_id = max(player_scores, key=player_scores.get)
         winner_name = self.get_player_name(winner_id, players)
         print(f"\nWinner: {winner_name} with {player_scores[winner_id]} points")
 
         print("\nMatch Results by Round:")
-        for rnd in rounds:
-            print(f"\nRound {rnd['round_number']}:")
-            for result in rnd["results"]:
-                player1 = self.get_player_name(result["player1"], players)
-                player2 = self.get_player_name(result["player2"], players)
-                winner = self.get_player_name(result["winner"], players)
+        for round_info in rounds:
+            print(f"\nRound {round_info['round_number']}:")
+            for match in round_info["results"]:
+                player1 = self.get_player_name(match["player1"], players)
+                player2 = self.get_player_name(match["player2"], players)
+                winner = self.get_player_name(match["winner"], players)
                 print(f"{player1} vs {player2} - Winner: {winner}")
 
     def generate_pdf_report(self, session_id, player_scores, players, rounds):
@@ -113,45 +118,47 @@ class TournamentRoundModel:
         pdf.add_page()
         pdf.set_font("Arial", size=12)
 
-        pdf.cell(
-            200,
-            10,
-            txt=f"Tournament Session Report - ID: {session_id}",
-            ln=True,
-            align="C",
-        )
-        pdf.ln(10)
+        pdf.cell(200, 10, txt="Tournament Results", ln=True, align="C")
 
-        pdf.cell(200, 10, txt="Final Scores:", ln=True)
+        pdf.cell(200, 10, txt="Final Scores:", ln=True, align="L")
         for player_id, score in player_scores.items():
             player_name = self.get_player_name(player_id, players)
-            pdf.cell(200, 10, txt=f"{player_name}: {score} points", ln=True)
+            pdf.cell(200, 10, txt=f"{player_name}: {score} points", ln=True, align="L")
 
         winner_id = max(player_scores, key=player_scores.get)
         winner_name = self.get_player_name(winner_id, players)
-        pdf.ln(10)
         pdf.cell(
             200,
             10,
-            txt=f"Winner: {winner_name} with {player_scores[winner_id]} points",
+            txt=f"\nWinner: {winner_name} with {player_scores[winner_id]} points",
             ln=True,
+            align="L",
         )
 
-        pdf.ln(10)
-        pdf.cell(200, 10, txt="Match Results by Round:", ln=True)
-        for rnd in rounds:
-            pdf.ln(5)
-            pdf.cell(200, 10, txt=f"Round {rnd['round_number']}:", ln=True)
-            for result in rnd["results"]:
-                player1 = self.get_player_name(result["player1"], players)
-                player2 = self.get_player_name(result["player2"], players)
-                winner = self.get_player_name(result["winner"], players)
+        pdf.cell(200, 10, txt="\nMatch Results by Round:", ln=True, align="L")
+        for round_info in rounds:
+            pdf.cell(
+                200,
+                10,
+                txt=f"\nRound {round_info['round_number']}:",
+                ln=True,
+                align="L",
+            )
+            for match in round_info["results"]:
+                player1 = self.get_player_name(match["player1"], players)
+                player2 = self.get_player_name(match["player2"], players)
+                winner = self.get_player_name(match["winner"], players)
                 pdf.cell(
-                    200, 10, txt=f"{player1} vs {player2} - Winner: {winner}", ln=True
+                    200,
+                    10,
+                    txt=f"{player1} vs {player2} - Winner: {winner}",
+                    ln=True,
+                    align="L",
                 )
 
         pdf_output_path = os.path.join(
-            self.data_path, f"tournament_session_{session_id}_report.pdf"
+            self.data_path, "rapport", f"tournament_session_{session_id}_report.pdf"
         )
+        os.makedirs(os.path.dirname(pdf_output_path), exist_ok=True)
         pdf.output(pdf_output_path)
         print(f"\nPDF report generated: {pdf_output_path}")
