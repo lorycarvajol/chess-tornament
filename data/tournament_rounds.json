@@ -1,0 +1,68 @@
+[
+    {
+        "session_id": 6,
+        "round_number": 1,
+        "results": [
+            {
+                "player1": 1,
+                "player2": 2,
+                "winner": 1
+            }
+        ]
+    },
+    {
+        "session_id": 6,
+        "round_number": 2,
+        "results": [
+            {
+                "player1": 2,
+                "player2": 3,
+                "winner": 2
+            }
+        ]
+    },
+    {
+        "session_id": 6,
+        "round_number": 3,
+        "results": [
+            {
+                "player1": 1,
+                "player2": 3,
+                "winner": 1
+            }
+        ]
+    },
+    {
+        "session_id": 7,
+        "round_number": 1,
+        "results": [
+            {
+                "player1": 3,
+                "player2": 4,
+                "winner": 3
+            }
+        ]
+    },
+    {
+        "session_id": 7,
+        "round_number": 2,
+        "results": [
+            {
+                "player1": 2,
+                "player2": 4,
+                "winner": 2
+            }
+        ]
+    },
+    {
+        "session_id": 7,
+        "round_number": 3,
+        "results": [
+            {
+                "player1": 2,
+                "player2": 3,
+                "winner": 2
+            }
+        ]
+    }
+]

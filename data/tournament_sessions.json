@@ -143,5 +143,53 @@
             3
         ],
         "is_active": true
+    },
+    {
+        "id": 5,
+        "tournament_id": 3,
+        "player_ids": [
+            2,
+            3,
+            4
+        ],
+        "is_active": true
+    },
+    {
+        "id": 6,
+        "tournament_id": 1,
+        "player_ids": [
+            1,
+            2,
+            3
+        ],
+        "is_active": true
+    },
+    {
+        "id": 7,
+        "tournament_id": 1,
+        "tournament_name": "Battle of Bordeaux",
+        "location": "Bordeaux",
+        "date": "15-08-2023",
+        "is_active": true,
+        "players": [
+            {
+                "player_id": 2,
+                "first_name": "Anna",
+                "last_name": "Lytics",
+                "score": 0
+            },
+            {
+                "player_id": 3,
+                "first_name": "Bill",
+                "last_name": "Board",
+                "score": 0
+            },
+            {
+                "player_id": 4,
+                "first_name": "Claire",
+                "last_name": "Voyant",
+                "score": 0
+            }
+        ]
     }
 ]

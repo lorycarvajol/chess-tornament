@@ -1,7 +1,7 @@
 import itertools
 import os
 import random
-from models.tournament_round_model import TournamentRoundModel
+from models.tournament_round import TournamentRoundModel
 from controllers.tournament_session_controller import TournamentSessionController
 from controllers.player_controller import PlayerController
 
