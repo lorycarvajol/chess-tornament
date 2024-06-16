@@ -102,7 +102,6 @@ Voir aussi la liste des [contributeurs](https://github.com/votre-nom-utilisateur
 
 Ce projet est sous licence MIT - voir le fichier [LICENSE.md](LICENSE.md) pour plus de détails.
 
-![Échecs](https://www.example.com/chess-footer.jpg)
 
 Profitez de la gestion de vos tournois avec **Chess Tournament** ! Faisons en sorte que chaque coup compte ! ♟️
 
@@ -114,7 +113,6 @@ English Doc :
 
 Welcome to **Tournament Manager** – your ultimate tool for organizing and managing chess tournaments. This application helps you manage players, set up tournaments, run Swiss-system rounds, and generate comprehensive reports. Let's get started!
 
-![Chess](https://www.example.com/chess-banner.jpg)
 
 ## 🚀 Features
 
@@ -211,6 +209,5 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 - Inspiration
 - etc
 
-![Chess](https://www.example.com/chess-footer.jpg)
 
 Enjoy managing your tournaments with Chest Tournament! Let's make every move count! ♟️
