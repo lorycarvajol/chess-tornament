@@ -1,9 +1,19 @@
+
+
+# ♟️ Chess Tournament ♟️
+
+Bienvenue dans Chest Tournament – votre outil ultime pour organiser et gérer des tournois d'échecs. Cette application vous aide à gérer les joueurs, organiser des tournois, mener des rondes en système suisse, et générer des rapports complets. Commençons !
+
+![Chess](https://www.example.com/chess-banner.jpg)
+
+
+
 Voici un logiciel ludique pour la gestion de tournois d'échecs, en français.
 
 ```markdown
 # ♟️ Gestionnaire de Tournois ♟️
 
-Bienvenue dans **Gestionnaire de Tournois** 
+Bienvenue dans **Chess Tournament** 
 – votre outil ultime pour organiser et gérer des tournois d'échecs. 
 Cette application vous aide à gérer les joueurs, à créer des tournois, à organiser des rondes en système suisse 
 et à générer des rapports complets. Commençons !
@@ -32,8 +42,8 @@ pip install InquirerPy fpdf
 Clonez le dépôt sur votre machine locale :
 
 ```bash
-git clone https://github.com/votre-nom-utilisateur/tournament-manager.git
-cd tournament-manager
+git clone https://github.com/lorycarvajol/chest-tornament.git
+cd chest-tournament
 ```
 
 ## 📖 Utilisation
@@ -98,13 +108,13 @@ Ce projet est sous licence MIT - voir le fichier [LICENSE.md](LICENSE.md) pour p
 
 ![Échecs](https://www.example.com/chess-footer.jpg)
 
-Profitez de la gestion de vos tournois avec **Gestionnaire de Tournois** ! Faisons en sorte que chaque coup compte ! ♟️
+Profitez de la gestion de vos tournois avec **Chess Tournament** ! Faisons en sorte que chaque coup compte ! ♟️
 
-___________________________________________________________________________________________________________________________________________________
+---
 
 English Doc :
 
-# ♟️ Tournament Manager ♟️
+# ♟️ Chess Tournament ♟️
 
 Welcome to **Tournament Manager** – your ultimate tool for organizing and managing chess tournaments. This application helps you manage players, set up tournaments, run Swiss-system rounds, and generate comprehensive reports. Let's get started!
 
@@ -120,14 +130,15 @@ Welcome to **Tournament Manager** – your ultimate tool for organizing and mana
 ## 📋 Prerequisites
 
 Before you begin, ensure you have met the following requirements:
+
 - Python 3.6+
 - `fpdf` library for PDF generation
 - `InquirerPy` library for interactive prompts
 
-
 You can install the necessary libraries using the following command:
+
 ```bash
-pip install InquirerPy fpdf tinydb
+Chest Tournamentpip install InquirerPy fpdf tinydb
 
 ## 🛠️ Installation
 
@@ -135,7 +146,7 @@ Clone the repository to your local machine:
 
 ```bash
 git clone https://github.com/lorycarvajol/chest-tornament.git
-cd tournament-manager
+cd chest-tournament
 ```
 
 ## 📖 Usage
@@ -206,4 +217,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ![Chess](https://www.example.com/chess-footer.jpg)
 
-Enjoy managing your tournaments with **Tournament Manager**! Let's make every move count! ♟️
+Enjoy managing your tournaments with Chest Tournament! Let's make every move count! ♟️
