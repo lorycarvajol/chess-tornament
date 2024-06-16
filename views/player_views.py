@@ -8,6 +8,7 @@ import re
 player_controller = PlayerController("data/players.json")
 
 
+# Fonction de validation pour la date
 def validate_date(input_date):
     if not re.match(r"^\d{2}-\d{2}-\d{4}$", input_date):
         return "Date must be in DD-MM-YYYY format."
@@ -23,33 +24,51 @@ def validate_date(input_date):
     if not 1 <= day <= 31:
         return "Day must be between 01 and 31."
     try:
-        datetime.strptime(input_date, "%d-%m-%YYYY")
+        datetime.strptime(input_date, "%d-%m-%Y")
     except ValueError:
         return "Invalid date. Please ensure the day, month, and year are correct."
     return True
 
 
+# Fonction de validation pour le nom
+def validate_name(name):
+    """Valider que le nom ne contient que des lettres."""
+    if re.match(r"^[A-Za-zÀ-ÿ]+$", name):  # Support des lettres accentuées
+        return True
+    return "Name must contain only letters in upper or lower case."
+
+
+# Fonction pour obtenir une entrée valide de l'utilisateur
+def get_valid_input(message, validate_fn):
+    while True:
+        result = prompt({"type": "input", "name": "input", "message": message})["input"]
+        validation_message = validate_fn(result)
+        if validation_message is True:
+            return result.strip().capitalize()
+        else:
+            color_print([("red", validation_message)])
+
+
+# Fonction pour ajouter un joueur
 def add_player():
-    color_print([("cyan", "Add a new player to the database.")])
-    questions = [
-        {"type": "input", "name": "first_name", "message": "Enter first name:"},
-        {"type": "input", "name": "last_name", "message": "Enter last name:"},
-        {
-            "type": "input",
-            "name": "birthdate",
-            "message": "Enter birthdate (DD-MM-YYYY):",
-            "validate": validate_date,
-        },
-    ]
-    answers = prompt(questions)
-    player_controller.add_player(
-        answers["first_name"], answers["last_name"], answers["birthdate"]
+    color_print([("cyan", "Ajoutez un nouveau joueur à la base de données.")])
+    print(
+        "Instructions: Entrez uniquement des lettres pour le prénom et le nom de famille."
     )
-    color_print([("green", "Player added successfully!")])
+    first_name = get_valid_input("Entrez le prénom :", validate_name)
+    last_name = get_valid_input("Entrez le nom de famille :", validate_name)
+    print("Instructions: Entrez la date de naissance au format JJ-MM-AAAA.")
+    birthdate = get_valid_input(
+        "Entrez la date de naissance (DD-MM-YYYY) :", validate_date
+    )
+
+    player_controller.add_player(first_name, last_name, birthdate)
+    color_print([("green", "Joueur ajouté avec succès !")])
 
 
+# Fonction pour lister tous les joueurs
 def list_players():
-    color_print([("cyan", "Listing all players:")])
+    color_print([("cyan", "Liste de tous les joueurs :")])
     players = player_controller.list_players()
     for player in players:
         print(
@@ -57,19 +76,22 @@ def list_players():
         )
 
 
+# Menu de gestion des joueurs
 def player_menu():
     while True:
-        color_print([("blue", "Player Menu - Manage players in the database.")])
+        color_print(
+            [("blue", "Menu Joueur - Gérez les joueurs dans la base de données.")]
+        )
         options = [
-            {"name": "Add Player", "value": "add_player"},
-            {"name": "List Players", "value": "list_players"},
-            {"name": "Return to Main Menu", "value": "return"},
+            {"name": "Ajouter un joueur", "value": "add_player"},
+            {"name": "Lister les joueurs", "value": "list_players"},
+            {"name": "Retour au menu principal", "value": "return"},
         ]
         result = prompt(
             {
                 "type": "list",
                 "name": "action",
-                "message": "Select an option:",
+                "message": "Sélectionnez une option :",
                 "choices": options,
             }
         )["action"]
@@ -79,3 +101,7 @@ def player_menu():
             list_players()
         elif result == "return":
             break
+
+
+if __name__ == "__main__":
+    player_menu()

@@ -2,7 +2,6 @@ import itertools
 import random
 import json
 import os
-from datetime import datetime
 from fpdf import FPDF
 from InquirerPy import prompt
 

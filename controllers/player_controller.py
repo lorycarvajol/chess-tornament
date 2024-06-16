@@ -1,5 +1,6 @@
 import json
 import os
+from models.player import Player
 
 
 class PlayerController:
@@ -26,12 +27,7 @@ class PlayerController:
     def add_player(self, first_name, last_name, birthdate):
         data = self.load_data()
         new_id = max([p["id"] for p in data], default=0) + 1
-        new_player = {
-            "id": new_id,
-            "first_name": first_name,
-            "last_name": last_name,
-            "birthdate": birthdate,
-        }
+        new_player = Player(first_name, last_name, birthdate, new_id).to_dict()
         data.append(new_player)
         self.save_data(data)
 

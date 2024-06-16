@@ -23,6 +23,6 @@ def main_menu():
         if result == "player_manager":
             player_menu()
         elif result == "tournament_manager":
-            tournament_menu()
+            tournament_menu()  # Assurez-vous d'avoir cette fonction définie
         elif result == "exit":
             break

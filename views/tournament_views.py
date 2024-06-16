@@ -6,67 +6,140 @@ from controllers.player_controller import PlayerController
 import re
 from datetime import datetime
 
+# Initialisation des contrôleurs pour les tournois, les joueurs et les sessions de tournoi
 tournament_controller = TournamentController("data/tournaments.json")
 player_controller = PlayerController("data/players.json")
 session_controller = TournamentSessionController("data")
 
 
 def validate_date(input_date):
-    """Validate that the date is in DD-MM-YYYY format and is a valid date."""
+    """
+    Valide que la date est au format DD-MM-YYYY et est une date valide.
+    """
     if not re.match(r"^\d{2}-\d{2}-\d{4}$", input_date):
-        return "Date must be in DD-MM-YYYY format."
+        return "La date doit être au format DD-MM-YYYY."
+    day, month, year = input_date.split("-")
+    try:
+        day = int(day)
+        month = int(month)
+        year = int(year)
+    except ValueError:
+        return "La date doit contenir des nombres valides."
+    if not 1 <= month <= 12:
+        return "Le mois doit être entre 01 et 12."
+    if not 1 <= day <= 31:
+        return "Le jour doit être entre 01 et 31."
     try:
         datetime.strptime(input_date, "%d-%m-%Y")
     except ValueError:
-        return "Invalid date. Please ensure the day, month, and year are correct."
+        return "Date invalide. Veuillez vous assurer que le jour, le mois et l'année sont corrects."
     return True
 
 
+def validate_name(name):
+    """
+    Valide que le nom contient uniquement des lettres (majuscules et minuscules) et des lettres accentuées.
+    """
+    if re.match(r"^[A-Za-zÀ-ÿ]+$", name):  # Support des lettres accentuées
+        return True
+    return "Le nom ne doit contenir que des lettres en majuscule ou en minuscule."
+
+
+def get_valid_input(message, validate_fn):
+    """
+    Demande une entrée utilisateur, la valide et affiche un message d'erreur jusqu'à ce que l'entrée soit correcte.
+    """
+    while True:
+        result = prompt({"type": "input", "name": "input", "message": message})["input"]
+        validation_message = validate_fn(result)
+        if validation_message is True:
+            return result.strip().capitalize()
+        else:
+            color_print([("red", validation_message)])
+
+
+def add_player():
+    """
+    Ajoute un nouveau joueur à la base de données après avoir validé les entrées.
+    """
+    color_print([("cyan", "Ajouter un nouveau joueur à la base de données.")])
+    print("Veuillez entrer les détails du joueur.")
+    first_name = get_valid_input(
+        "Entrez le prénom (lettres seulement) :", validate_name
+    )
+    last_name = get_valid_input(
+        "Entrez le nom de famille (lettres seulement) :", validate_name
+    )
+    birthdate = get_valid_input(
+        "Entrez la date de naissance (DD-MM-YYYY) :", validate_date
+    )
+
+    player_controller.add_player(first_name, last_name, birthdate)
+    color_print([("green", "Joueur ajouté avec succès !")])
+
+
+def list_players():
+    """
+    Affiche tous les joueurs de la base de données.
+    """
+    color_print([("cyan", "Liste de tous les joueurs :")])
+    print("Voici la liste de tous les joueurs actuellement enregistrés :")
+    players = player_controller.list_players()
+    for player in players:
+        print(
+            f"{player['id']}: {player['first_name']} {player['last_name']} - {player['birthdate']}"
+        )
+    print("Fin de la liste des joueurs.")
+
+
 def add_tournament_form():
-    questions = [
-        {
-            "type": "input",
-            "name": "name",
-            "message": "Enter tournament name:",
-            "validate": lambda text: True if text else "Tournament name is required",
-        },
-        {
-            "type": "input",
-            "name": "location",
-            "message": "Enter location:",
-            "validate": lambda text: True if text else "Location is required",
-        },
-        {
-            "type": "input",
-            "name": "date",
-            "message": "Enter date (DD-MM-YYYY):",
-            "validate": validate_date,
-        },
-    ]
-    answers = prompt(questions)
-    tournament_controller.add_tournament(**answers)
-    color_print([("green", "Tournament added successfully!")])
+    """
+    Ajoute un nouveau tournoi à la base de données après avoir validé les entrées.
+    """
+    color_print([("cyan", "Ajouter un nouveau tournoi à la base de données.")])
+    print("Veuillez entrer les détails du tournoi.")
+    name = get_valid_input(
+        "Entrez le nom du tournoi (lettres seulement) :", validate_name
+    )
+    location = get_valid_input(
+        "Entrez l'emplacement du tournoi (lettres seulement) :", validate_name
+    )
+    date = get_valid_input("Entrez la date du tournoi (DD-MM-YYYY) :", validate_date)
+
+    tournament_controller.add_tournament(name, location, date)
+    color_print([("green", "Tournoi ajouté avec succès !")])
 
 
 def list_tournaments():
+    """
+    Affiche tous les tournois de la base de données.
+    """
+    color_print([("cyan", "Liste de tous les tournois :")])
+    print("Voici la liste de tous les tournois actuellement enregistrés :")
     tournaments = tournament_controller.list_tournaments()
     if tournaments:
-        color_print([("cyan", "Listing all tournaments:")])
         for tournament in tournaments:
             print(
-                f"{tournament['id']}: {tournament['name']} at {tournament['location']} on {tournament['date']}"
+                f"{tournament['id']}: {tournament['name']} à {tournament['location']} le {tournament['date']}"
             )
+        print("Fin de la liste des tournois.")
     else:
-        color_print([("yellow", "No tournaments found.")])
+        color_print([("yellow", "Aucun tournoi trouvé.")])
 
 
 def add_players_to_tournament():
-    color_print([("cyan", "\nAdd players to an existing tournament.")])
+    """
+    Ajoute des joueurs à un tournoi existant et démarre une session de tournoi.
+    """
+    color_print([("cyan", "\nAjouter des joueurs à un tournoi existant.")])
+
+    # Charge la liste des tournois
     tournaments = tournament_controller.list_tournaments()
     if not tournaments:
-        color_print([("red", "No tournaments available.")])
+        color_print([("red", "Aucun tournoi disponible.")])
         return
 
+    # Permet de choisir un tournoi
     tournament_choices = [
         {"name": f"{t['id']}: {t['name']}", "value": t["id"]} for t in tournaments
     ]
@@ -74,16 +147,18 @@ def add_players_to_tournament():
         {
             "type": "list",
             "name": "tournament",
-            "message": "Choose a tournament to add players:",
+            "message": "Choisissez un tournoi pour ajouter des joueurs :",
             "choices": tournament_choices,
         }
     )["tournament"]
 
+    # Charge la liste des joueurs
     players = player_controller.list_players()
     if not players:
-        color_print([("yellow", "No players available.")])
+        color_print([("yellow", "Aucun joueur disponible.")])
         return
 
+    # Permet de choisir des joueurs
     player_choices = [
         {"name": f"{p['first_name']} {p['last_name']}", "value": p["id"]}
         for p in players
@@ -92,43 +167,56 @@ def add_players_to_tournament():
         {
             "type": "checkbox",
             "name": "players",
-            "message": "Select players for this tournament:",
+            "message": "Sélectionnez des joueurs pour ce tournoi :",
             "choices": player_choices,
         }
     )["players"]
 
     if not selected_player_ids:
-        color_print([("yellow", "No players selected for the tournament.")])
+        color_print([("yellow", "Aucun joueur sélectionné pour le tournoi.")])
         return
 
+    # Démarre une session de tournoi
     session_controller = TournamentSessionController("data")
     session = session_controller.start_tournament_session(
         selected_tournament_id, selected_player_ids
     )
 
-    color_print([("green", f"Tournament session started with ID {session['id']}")])
+    color_print([("green", f"Session de tournoi commencée avec l'ID {session['id']}")])
+    print(
+        "Début des rondes du tournoi. Vous allez maintenant sélectionner les vainqueurs des matchs."
+    )
 
+    # Démarre les rounds du tournoi
     session_controller.start_tournament_rounds(
         session["id"], selected_player_ids, players
     )
 
+
 def tournament_menu():
+    """
+    Menu principal pour gérer les tournois dans la base de données.
+    """
     while True:
         color_print(
-            [("blue", "\nTournament Menu - Manage tournaments in the database.")]
+            [
+                (
+                    "blue",
+                    "\nMenu du tournoi - Gérer les tournois dans la base de données.",
+                )
+            ]
         )
         options = [
-            {"name": "Add Tournament", "value": "add"},
-            {"name": "Play Tournament", "value": "play"},
-            {"name": "Add Players to Tournament", "value": "add_players"},
-            {"name": "List Tournaments", "value": "list"},
-            {"name": "Return to Main Menu", "value": "return"},
+            {"name": "Ajouter un tournoi", "value": "add"},
+            {"name": "Jouer un tournoi", "value": "play"},
+            {"name": "Liste des tournois", "value": "list"},
+            {"name": "Retour au menu principal", "value": "return"},
         ]
         result = prompt(
             {
                 "type": "list",
                 "name": "action",
-                "message": "Select an option:",
+                "message": "Sélectionnez une option :",
                 "choices": options,
             }
         )["action"]
@@ -136,10 +224,14 @@ def tournament_menu():
         if result == "add":
             add_tournament_form()
         elif result == "play":
-            add_players_to_tournament()  # This method includes starting the tournament
-        elif result == "add_players":
             add_players_to_tournament()
         elif result == "list":
             list_tournaments()
         elif result == "return":
             break
+
+
+if __name__ == "__main__":
+    print("Bienvenue dans le gestionnaire de tournois !")
+    print("Utilisez les options du menu pour naviguer dans l'application.")
+    tournament_menu()
