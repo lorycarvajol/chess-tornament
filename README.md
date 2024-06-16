@@ -1,12 +1,8 @@
-
-
 # ♟️ Chess Tournament ♟️
 
-Bienvenue dans Chest Tournament – votre outil ultime pour organiser et gérer des tournois d'échecs. Cette application vous aide à gérer les joueurs, organiser des tournois, mener des rondes en système suisse, et générer des rapports complets. Commençons !
+Bienvenue dans Chess Tournament – votre outil ultime pour organiser et gérer des tournois d'échecs. Cette application vous aide à gérer les joueurs, organiser des tournois, mener des rondes en système suisse, et générer des rapports complets. Commençons !
 
 ![Chess](https://www.example.com/chess-banner.jpg)
-
-
 
 Voici un logiciel ludique pour la gestion de tournois d'échecs, en français.
 
@@ -42,8 +38,8 @@ pip install InquirerPy fpdf
 Clonez le dépôt sur votre machine locale :
 
 ```bash
-git clone https://github.com/lorycarvajol/chest-tornament.git
-cd chest-tournament
+git clone https://github.com/lorycarvajol/chess-tornament.git
+cd chess-tournament
 ```
 
 ## 📖 Utilisation
@@ -145,8 +141,8 @@ Chest Tournamentpip install InquirerPy fpdf tinydb
 Clone the repository to your local machine:
 
 ```bash
-git clone https://github.com/lorycarvajol/chest-tornament.git
-cd chest-tournament
+git clone https://github.com/lorycarvajol/chess-tornament.git
+cd chess-tournament
 ```
 
 ## 📖 Usage
