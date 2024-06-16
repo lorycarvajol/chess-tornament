@@ -1,12 +1,12 @@
-
-Voici un logiciel ludique pour votre projet de gestion de tournois d'échecs, en français.
+Voici un logiciel ludique pour la gestion de tournois d'échecs, en français.
 
 ```markdown
 # ♟️ Gestionnaire de Tournois ♟️
 
-Bienvenue dans **Gestionnaire de Tournois** – votre outil ultime pour organiser et gérer des tournois d'échecs. Cette application vous aide à gérer les joueurs, à créer des tournois, à organiser des rondes en système suisse et à générer des rapports complets. Commençons !
-
-![Échecs](https://www.example.com/chess-banner.jpg)
+Bienvenue dans **Gestionnaire de Tournois** 
+– votre outil ultime pour organiser et gérer des tournois d'échecs. 
+Cette application vous aide à gérer les joueurs, à créer des tournois, à organiser des rondes en système suisse 
+et à générer des rapports complets. Commençons !
 
 ## 🚀 Fonctionnalités
 
@@ -21,11 +21,10 @@ Avant de commencer, assurez-vous de répondre aux exigences suivantes :
 - Python 3.6+
 - Bibliothèque `fpdf` pour la génération de PDF
 - Bibliothèque `InquirerPy` pour les invites interactives
-- `TinyDB` pour la gestion de la base de données
 
 Vous pouvez installer les bibliothèques nécessaires avec la commande suivante :
 ```bash
-pip install InquirerPy fpdf tinydb
+pip install InquirerPy fpdf 
 ```
 
 ## 🛠️ Installation
@@ -45,8 +44,6 @@ cd tournament-manager
 
    - **Ajouter un Tournoi** : Créer un nouveau tournoi en entrant son nom, son lieu et sa date.
    - **Lancer un Tournoi** : Sélectionner un tournoi, ajouter des joueurs et démarrer les rondes en système suisse.
-   - **Ajouter des Joueurs à un Tournoi** : Ajouter des joueurs existants à un tournoi.
-   - **Lister les Tournois** : Voir tous les tournois actifs.
    - **Retourner au Menu Principal** : Retourner au menu principal.
 2. **Gestionnaire de Joueurs**
 
@@ -99,25 +96,14 @@ Voir aussi la liste des [contributeurs](https://github.com/votre-nom-utilisateur
 
 Ce projet est sous licence MIT - voir le fichier [LICENSE.md](LICENSE.md) pour plus de détails.
 
-## 🎉 Remerciements
-
-- Coup de chapeau à tous ceux dont le code a été utilisé
-- Inspiration
-- etc
-
 ![Échecs](https://www.example.com/chess-footer.jpg)
 
 Profitez de la gestion de vos tournois avec **Gestionnaire de Tournois** ! Faisons en sorte que chaque coup compte ! ♟️
 
-```
+___________________________________________________________________________________________________________________________________________________
 
-Remplacez les URLs et noms de remplacement par les informations réelles selon vos besoins. Ce `README.md` offre une présentation claire, attrayante et conviviale de l'utilisation de votre application Gestionnaire de Tournois.
-```
+English Doc :
 
-
-English Doc : 
-
-```markdown
 # ♟️ Tournament Manager ♟️
 
 Welcome to **Tournament Manager** – your ultimate tool for organizing and managing chess tournaments. This application helps you manage players, set up tournaments, run Swiss-system rounds, and generate comprehensive reports. Let's get started!
@@ -137,12 +123,11 @@ Before you begin, ensure you have met the following requirements:
 - Python 3.6+
 - `fpdf` library for PDF generation
 - `InquirerPy` library for interactive prompts
-- `TinyDB` for database management
+
 
 You can install the necessary libraries using the following command:
 ```bash
 pip install InquirerPy fpdf tinydb
-```
 
 ## 🛠️ Installation
 
@@ -161,8 +146,6 @@ cd tournament-manager
 
    - **Add Tournament**: Create a new tournament by entering its name, location, and date.
    - **Play Tournament**: Select a tournament, add players, and start Swiss-system rounds.
-   - **Add Players to Tournament**: Add existing players to a tournament.
-   - **List Tournaments**: View all active tournaments.
    - **Return to Main Menu**: Go back to the main menu.
 2. **Player Manager**
 
@@ -224,8 +207,3 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 ![Chess](https://www.example.com/chess-footer.jpg)
 
 Enjoy managing your tournaments with **Tournament Manager**! Let's make every move count! ♟️
-
-```
-
-Replace placeholder URLs and names with actual information as needed. This `README.md` provides a clear, attractive, and user-friendly guide to using your Tournament Manager application.
-```

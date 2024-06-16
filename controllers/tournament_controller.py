@@ -21,7 +21,7 @@ class TournamentController:
         Vérifie si le fichier de données existe et s'il est vide, il crée un fichier vide.
         """
         if not os.path.exists(self.file_path) or os.stat(self.file_path).st_size == 0:
-            with open(self.file_path, "w") as f:
+            with open(self.file_path, "w", encoding="utf-8") as f:
                 json.dump([], f)
             print(f"Fichier de données créé à : {self.file_path}")
 
@@ -32,7 +32,7 @@ class TournamentController:
         Returns:
             list: Une liste des tournois chargés depuis le fichier.
         """
-        with open(self.file_path, "r") as f:
+        with open(self.file_path, "r", encoding="utf-8") as f:
             try:
                 data = json.load(f)
                 print("Données chargées avec succès.")
@@ -50,7 +50,7 @@ class TournamentController:
         Args:
             data (list): Les données des tournois à sauvegarder.
         """
-        with open(self.file_path, "w") as f:
+        with open(self.file_path, "w", encoding="utf-8") as f:
             json.dump(data, f, indent=4)
         print("Données sauvegardées avec succès.")
 

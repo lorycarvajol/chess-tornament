@@ -1,65 +1,72 @@
 [
     {
         "id": 1,
-        "name": "Battle of Bordeaux",
+        "name": "La Bataille de Bordeaux",
         "location": "Bordeaux",
         "date": "15-08-2023",
         "is_finished": false
     },
     {
         "id": 2,
-        "name": "Nantes Naval Skirmish",
+        "name": "La Joute Nantaise",
         "location": "Nantes",
         "date": "20-09-2023",
         "is_finished": false
     },
     {
         "id": 3,
-        "name": "Toulouse Tech Tournament",
+        "name": "Le Tournoi Technologique de Toulouse",
         "location": "Toulouse",
         "date": "05-11-2023",
         "is_finished": false
     },
     {
         "id": 4,
-        "name": "Provence Poker Party",
+        "name": "La Partie de Poker Provençale",
         "location": "Marseille",
         "date": "12-12-2023",
         "is_finished": false
     },
     {
         "id": 5,
-        "name": "lugdunum connection",
-        "location": "lyon",
-        "date": "10-10-2000",
-        "is_finished": false
-    },
-    {
-        "id": 6,
-        "name": "super",
-        "location": "Ici",
-        "date": "10-10-2000",
-        "is_finished": false
-    },
-    {
-        "id": 7,
-        "name": "5654",
-        "location": "465464",
-        "date": "10-10-2000",
-        "is_finished": false
-    },
-    {
-        "id": 8,
-        "name": "Sililou",
+        "name": "La Connexion Lyonnaise",
         "location": "Lyon",
         "date": "10-10-2000",
         "is_finished": false
     },
     {
+        "id": 6,
+        "name": "L'Explosion Épicurienne de Paris",
+        "location": "Paris",
+        "date": "14-02-2024",
+        "is_finished": false
+    },
+    {
+        "id": 7,
+        "name": "Le Défi Dijonnais",
+        "location": "Dijon",
+        "date": "03-03-2024",
+        "is_finished": false
+    },
+    {
+        "id": 8,
+        "name": "La Compétition Corsaire de Brest",
+        "location": "Brest",
+        "date": "21-06-2024",
+        "is_finished": false
+    },
+    {
         "id": 9,
-        "name": "Lili",
-        "location": "Lili",
-        "date": "10-10-2000",
+        "name": "La Rencontre Royale de Versailles",
+        "location": "Versailles",
+        "date": "07-07-2024",
+        "is_finished": false
+    },
+    {
+        "id": 10,
+        "name": "La Fantaisie Féérique de Strasbourg",
+        "location": "Strasbourg",
+        "date": "25-12-2024",
         "is_finished": false
     }
 ]

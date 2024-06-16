@@ -58,40 +58,6 @@ def get_valid_input(message, validate_fn):
             color_print([("red", validation_message)])
 
 
-def add_player():
-    """
-    Ajoute un nouveau joueur à la base de données après avoir validé les entrées.
-    """
-    color_print([("cyan", "Ajouter un nouveau joueur à la base de données.")])
-    print("Veuillez entrer les détails du joueur.")
-    first_name = get_valid_input(
-        "Entrez le prénom (lettres seulement) :", validate_name
-    )
-    last_name = get_valid_input(
-        "Entrez le nom de famille (lettres seulement) :", validate_name
-    )
-    birthdate = get_valid_input(
-        "Entrez la date de naissance (DD-MM-YYYY) :", validate_date
-    )
-
-    player_controller.add_player(first_name, last_name, birthdate)
-    color_print([("green", "Joueur ajouté avec succès !")])
-
-
-def list_players():
-    """
-    Affiche tous les joueurs de la base de données.
-    """
-    color_print([("cyan", "Liste de tous les joueurs :")])
-    print("Voici la liste de tous les joueurs actuellement enregistrés :")
-    players = player_controller.list_players()
-    for player in players:
-        print(
-            f"{player['id']}: {player['first_name']} {player['last_name']} - {player['birthdate']}"
-        )
-    print("Fin de la liste des joueurs.")
-
-
 def add_tournament_form():
     """
     Ajoute un nouveau tournoi à la base de données après avoir validé les entrées.
@@ -108,23 +74,6 @@ def add_tournament_form():
 
     tournament_controller.add_tournament(name, location, date)
     color_print([("green", "Tournoi ajouté avec succès !")])
-
-
-def list_tournaments():
-    """
-    Affiche tous les tournois de la base de données.
-    """
-    color_print([("cyan", "Liste de tous les tournois :")])
-    print("Voici la liste de tous les tournois actuellement enregistrés :")
-    tournaments = tournament_controller.list_tournaments()
-    if tournaments:
-        for tournament in tournaments:
-            print(
-                f"{tournament['id']}: {tournament['name']} à {tournament['location']} le {tournament['date']}"
-            )
-        print("Fin de la liste des tournois.")
-    else:
-        color_print([("yellow", "Aucun tournoi trouvé.")])
 
 
 def add_players_to_tournament():
@@ -167,7 +116,7 @@ def add_players_to_tournament():
         {
             "type": "checkbox",
             "name": "players",
-            "message": "Sélectionnez des joueurs pour ce tournoi :",
+            "message": "Sélectionnez des joueurs pour ce tournoi ( utilisez 'espace' pour sélectionner, 'entrer' pour valider) :",
             "choices": player_choices,
         }
     )["players"]
@@ -195,7 +144,7 @@ def add_players_to_tournament():
 
 def tournament_menu():
     """
-    Menu principal pour gérer les tournois dans la base de données.
+    Menu pour gérer les tournois.
     """
     while True:
         color_print(
@@ -209,14 +158,13 @@ def tournament_menu():
         options = [
             {"name": "Ajouter un tournoi", "value": "add"},
             {"name": "Jouer un tournoi", "value": "play"},
-            {"name": "Liste des tournois", "value": "list"},
-            {"name": "Retour au menu principal", "value": "return"},
+            {"name": "Retourner au menu principal", "value": "return"},
         ]
         result = prompt(
             {
                 "type": "list",
                 "name": "action",
-                "message": "Sélectionnez une option :",
+                "message": "Sélectionnez une option:",
                 "choices": options,
             }
         )["action"]
@@ -225,8 +173,6 @@ def tournament_menu():
             add_tournament_form()
         elif result == "play":
             add_players_to_tournament()
-        elif result == "list":
-            list_tournaments()
         elif result == "return":
             break
 
