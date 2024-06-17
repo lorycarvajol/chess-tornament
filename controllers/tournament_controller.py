@@ -60,6 +60,17 @@ class TournamentController:
             date (str): Date du tournoi (format DD-MM-YYYY).
         """
         data = self.load_data()
+
+        # Vérifie s'il existe déjà un tournoi avec le même nom, lieu et date
+        for tournament in data:
+            if (
+                tournament["name"] == name
+                and tournament["location"] == location
+                and tournament["date"] == date
+            ):
+                print("Un tournoi avec le même nom, lieu et date existe déjà.")
+                return
+
         new_id = max([t["id"] for t in data], default=0) + 1
         new_tournament = {
             "id": new_id,
