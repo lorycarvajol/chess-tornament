@@ -21,7 +21,7 @@ class Tournament:
         try:
             self.date = datetime.strptime(date, "%d-%m-%Y").date()
         except ValueError:
-            raise ValueError("Invalid date format. Please use DD-MM-YYYY format.")
+            raise ValueError("format de date invalide. Utilisez le format DD-MM-YYYY.")
         self.players = players if players is not None else []
         self.is_finished = is_finished
 

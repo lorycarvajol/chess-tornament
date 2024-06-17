@@ -30,7 +30,7 @@ class Player:
             "last_name": self.last_name,
             "birthdate": self.birthdate,
         }
-        print(f"Player converti en dictionnaire : {player_dict}")
+        #    print(f"Player converti en dictionnaire : {player_dict}")
         return player_dict
 
     @classmethod
@@ -50,5 +50,5 @@ class Player:
             birthdate=data["birthdate"],
             player_id=data.get("id"),
         )
-        print(f"Player créé à partir du dictionnaire : {data}")
+        #       print(f"Player créé à partir du dictionnaire : {data}")
         return player

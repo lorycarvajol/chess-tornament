@@ -1,18 +1,11 @@
-# ♟️ Chess Tournament ♟️
-
-Bienvenue dans Chess Tournament – votre outil ultime pour organiser et gérer des tournois d'échecs. Cette application vous aide à gérer les joueurs, organiser des tournois, mener des rondes en système suisse, et générer des rapports complets. Commençons !
-
-![Chess](https://www.example.com/chess-banner.jpg)
-
-Voici un logiciel ludique pour la gestion de tournois d'échecs, en français.
 
 ```markdown
-# ♟️ Gestionnaire de Tournois ♟️
+#♟️ Gestionnaire de Tournois d'Échecs ♟️
 
-Bienvenue dans **Chess Tournament** 
-– votre outil ultime pour organiser et gérer des tournois d'échecs. 
-Cette application vous aide à gérer les joueurs, à créer des tournois, à organiser des rondes en système suisse 
-et à générer des rapports complets. Commençons !
+Bienvenue dans Chess Tournament – votre outil ultime pour organiser et gérer des tournois d'échecs. 
+Cette application vous aide à gérer les joueurs, organiser des tournois, 
+mener des rondes en [système suisse](https://fr.wikipedia.org/wiki/Syst%C3%A8me_suisse),
+et générer des rapports complets. Commençons !
 
 ## 🚀 Fonctionnalités
 
@@ -24,12 +17,13 @@ et à générer des rapports complets. Commençons !
 ## 📋 Prérequis
 
 Avant de commencer, assurez-vous de répondre aux exigences suivantes :
-- Python 3.6+
+- Python  3.12.2
 - Bibliothèque `fpdf` pour la génération de PDF
 - Bibliothèque `InquirerPy` pour les invites interactives
 
 Vous pouvez installer les bibliothèques nécessaires avec la commande suivante :
 ```bash
+
 pip install InquirerPy fpdf 
 ```
 
@@ -57,7 +51,7 @@ cd chess-tournament
    - **Lister les Joueurs** : Voir tous les joueurs enregistrés.
    - **Retourner au Menu Principal** : Retourner au menu principal.
 
-### Exemples de Commandes
+### Exemple de Commandes
 
 Lancez l'application :
 
@@ -102,7 +96,6 @@ Voir aussi la liste des [contributeurs](https://github.com/votre-nom-utilisateur
 
 Ce projet est sous licence MIT - voir le fichier [LICENSE.md](LICENSE.md) pour plus de détails.
 
-
 Profitez de la gestion de vos tournois avec **Chess Tournament** ! Faisons en sorte que chaque coup compte ! ♟️
 
 ---
@@ -112,7 +105,6 @@ English Doc :
 # ♟️ Chess Tournament ♟️
 
 Welcome to **Tournament Manager** – your ultimate tool for organizing and managing chess tournaments. This application helps you manage players, set up tournaments, run Swiss-system rounds, and generate comprehensive reports. Let's get started!
-
 
 ## 🚀 Features
 
@@ -132,7 +124,8 @@ Before you begin, ensure you have met the following requirements:
 You can install the necessary libraries using the following command:
 
 ```bash
-Chest Tournamentpip install InquirerPy fpdf tinydb
+pip install InquirerPy fpdf 
+```
 
 ## 🛠️ Installation
 
@@ -209,5 +202,12 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 - Inspiration
 - etc
 
+Enjoy managing your tournaments with Chess Tournament! Let's make every move count! ♟️
 
-Enjoy managing your tournaments with Chest Tournament! Let's make every move count! ♟️
+```
+
+```
+
+```
+
+```

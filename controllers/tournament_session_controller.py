@@ -15,9 +15,6 @@ class TournamentSessionController:
         self.sessions_file = os.path.join(self.data_path, "tournament_sessions.json")
         self.round_model = TournamentRoundModel(self.data_path)
         self.ensure_sessions_file()
-        print(
-            f"TournamentSessionController initialisé avec le chemin de données : {data_path}"
-        )
 
     def ensure_sessions_file(self):
         """
@@ -53,7 +50,6 @@ class TournamentSessionController:
         """
         with open(self.sessions_file, "w") as f:
             json.dump(sessions, f, indent=4)
-        print(f"Sessions sauvegardées dans {self.sessions_file}")
 
     def get_next_id(self):
         """
@@ -88,7 +84,7 @@ class TournamentSessionController:
         }
         sessions.append(new_session)
         self.save_sessions(sessions)
-        print(f"Nouvelle session de tournoi démarrée avec l'ID {new_session['id']}")
+
         return new_session
 
     def start_tournament_rounds(self, session_id, player_ids, players):

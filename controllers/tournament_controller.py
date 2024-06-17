@@ -12,9 +12,6 @@ class TournamentController:
         """
         self.file_path = file_path
         self.ensure_file_exists()
-        print(
-            f"TournamentController initialisé avec le fichier de données : {file_path}"
-        )
 
     def ensure_file_exists(self):
         """
@@ -23,7 +20,6 @@ class TournamentController:
         if not os.path.exists(self.file_path) or os.stat(self.file_path).st_size == 0:
             with open(self.file_path, "w", encoding="utf-8") as f:
                 json.dump([], f)
-            print(f"Fichier de données créé à : {self.file_path}")
 
     def load_data(self):
         """
@@ -64,6 +60,17 @@ class TournamentController:
             date (str): Date du tournoi (format DD-MM-YYYY).
         """
         data = self.load_data()
+
+        # Vérifie s'il existe déjà un tournoi avec le même nom, lieu et date
+        for tournament in data:
+            if (
+                tournament["name"] == name
+                and tournament["location"] == location
+                and tournament["date"] == date
+            ):
+                print("Un tournoi avec le même nom, lieu et date existe déjà.")
+                return
+
         new_id = max([t["id"] for t in data], default=0) + 1
         new_tournament = {
             "id": new_id,

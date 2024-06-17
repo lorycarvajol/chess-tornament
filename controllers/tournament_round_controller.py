@@ -19,9 +19,6 @@ class TournamentRoundController:
         self.player_controller = PlayerController(
             os.path.join(data_path, "players.json")
         )
-        print(
-            f"TournamentRoundController initialisé avec le chemin de données : {data_path}"
-        )
 
     def get_player_name(self, player_id, players):
         """

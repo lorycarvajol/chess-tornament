@@ -22,7 +22,7 @@
     },
     {
         "id": 4,
-        "name": "La Partie de Poker Provençale",
+        "name": "La Partie de Poker Proven\u00e7ale",
         "location": "Marseille",
         "date": "12-12-2023",
         "is_finished": false
@@ -36,21 +36,21 @@
     },
     {
         "id": 6,
-        "name": "L'Explosion Épicurienne de Paris",
+        "name": "L'Explosion \u00c9picurienne de Paris",
         "location": "Paris",
         "date": "14-02-2024",
         "is_finished": false
     },
     {
         "id": 7,
-        "name": "Le Défi Dijonnais",
+        "name": "Le D\u00e9fi Dijonnais",
         "location": "Dijon",
         "date": "03-03-2024",
         "is_finished": false
     },
     {
         "id": 8,
-        "name": "La Compétition Corsaire de Brest",
+        "name": "La Comp\u00e9tition Corsaire de Brest",
         "location": "Brest",
         "date": "21-06-2024",
         "is_finished": false
@@ -64,9 +64,16 @@
     },
     {
         "id": 10,
-        "name": "La Fantaisie Féérique de Strasbourg",
+        "name": "La Fantaisie F\u00e9\u00e9rique de Strasbourg",
         "location": "Strasbourg",
         "date": "25-12-2024",
+        "is_finished": false
+    },
+    {
+        "id": 11,
+        "name": "Kkkk",
+        "location": "Kkkk",
+        "date": "10-10-2000",
         "is_finished": false
     }
 ]
