@@ -20,5 +20,16 @@
                 "winner": 1
             }
         ]
+    },
+    {
+        "session_id": 3,
+        "round_number": 1,
+        "results": [
+            {
+                "player1": 3,
+                "player2": 4,
+                "winner": 3
+            }
+        ]
     }
 ]
