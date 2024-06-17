@@ -10,13 +10,15 @@ def main_menu():
     """
     while True:
         # Affiche un message d'instructions à l'utilisateur
-        color_print([("blue", "Main Menu - Choose an option to proceed.")])
+        color_print(
+            [("blue", "Menu Principal - Choisissez une option pour continuer.")]
+        )
 
         # Définit les options du menu principal
         options = [
-            {"name": "Player Manager", "value": "player_manager"},
-            {"name": "Tournament Manager", "value": "tournament_manager"},
-            {"name": "Exit", "value": "exit"},
+            {"name": "Gestion des Joueurs", "value": "player_manager"},
+            {"name": "Gestion des Tournois", "value": "tournament_manager"},
+            {"name": "Quitter", "value": "exit"},
         ]
 
         # Affiche le menu et attend la sélection de l'utilisateur
@@ -24,7 +26,7 @@ def main_menu():
             {
                 "type": "list",
                 "name": "action",
-                "message": "Select an option:",
+                "message": "Sélectionnez une option :",
                 "choices": options,
             }
         )["action"]
@@ -36,3 +38,17 @@ def main_menu():
             tournament_menu()  # Appelle le menu de gestion des tournois
         elif result == "exit":
             break  # Quitte l'application
+
+    # Affiche un message sympathique lorsque l'utilisateur quitte l'application
+    color_print(
+        [
+            (
+                "green",
+                "Merci d'avoir utilisé le gestionnaire de tournois ! À bientôt et bonne chance pour vos prochains tournois !",
+            )
+        ]
+    )
+
+
+if __name__ == "__main__":
+    main_menu()
