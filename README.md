@@ -1,7 +1,6 @@
-```markdown
-♟️ Gestionnaire de Tournois d'Échecs ♟️
-Bienvenue dans Chess Tournament – votre outil ultime pour organiser et gérer des tournois d'échecs. 
-Cette application vous aide à gérer les joueurs, organiser des tournois, 
+# ♟️ Gestionnaire de Tournois d'Échecs ♟️
+Bienvenue dans Chess Tournament – votre outil ultime pour organiser et gérer des tournois d'échecs.
+Cette application vous aide à gérer les joueurs, organiser des tournois,
 mener des rondes en système suisse et générer des rapports complets. Commençons !
 
 🚀 Fonctionnalités
@@ -20,7 +19,6 @@ Vous pouvez installer les bibliothèques nécessaires avec la commande suivante 
 bash
 Copier le code
 pip install InquirerPy fpdf
-```
 
 ## 🛠️ Installation
 
