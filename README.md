@@ -1,30 +1,25 @@
-
 ```markdown
-#♟️ Gestionnaire de Tournois d'Échecs ♟️
-
+♟️ Gestionnaire de Tournois d'Échecs ♟️
 Bienvenue dans Chess Tournament – votre outil ultime pour organiser et gérer des tournois d'échecs. 
 Cette application vous aide à gérer les joueurs, organiser des tournois, 
-mener des rondes en [système suisse](https://fr.wikipedia.org/wiki/Syst%C3%A8me_suisse),
-et générer des rapports complets. Commençons !
+mener des rondes en système suisse et générer des rapports complets. Commençons !
 
-## 🚀 Fonctionnalités
-
-- **Gestion des joueurs** : Ajouter, lister et gérer facilement les joueurs.
-- **Gestion des tournois** : Créer des tournois, ajouter des joueurs et gérer les rondes.
-- **Rondes en système suisse** : Générer automatiquement des rondes et déterminer les vainqueurs des matchs.
-- **Rapports complets** : Générer des rapports PDF détaillés des résultats des tournois.
-
-## 📋 Prérequis
-
+🚀 Fonctionnalités
+Gestion des joueurs : Ajouter, lister et gérer facilement les joueurs.
+Gestion des tournois : Créer des tournois, ajouter des joueurs et gérer les rondes.
+Rondes en système suisse : Générer automatiquement des rondes et déterminer les vainqueurs des matchs.
+Rapports complets : Générer des rapports PDF détaillés des résultats des tournois.
+📋 Prérequis
 Avant de commencer, assurez-vous de répondre aux exigences suivantes :
-- Python  3.12.2
-- Bibliothèque `fpdf` pour la génération de PDF
-- Bibliothèque `InquirerPy` pour les invites interactives
 
+Python 3.12+
+Bibliothèque fpdf pour la génération de PDF
+Bibliothèque InquirerPy pour les invites interactives
 Vous pouvez installer les bibliothèques nécessaires avec la commande suivante :
-```bash
 
-pip install InquirerPy fpdf 
+bash
+Copier le code
+pip install InquirerPy fpdf
 ```
 
 ## 🛠️ Installation
@@ -100,8 +95,6 @@ Profitez de la gestion de vos tournois avec **Chess Tournament** ! Faisons en so
 
 ---
 
-English Doc :
-
 # ♟️ Chess Tournament ♟️
 
 Welcome to **Tournament Manager** – your ultimate tool for organizing and managing chess tournaments. This application helps you manage players, set up tournaments, run Swiss-system rounds, and generate comprehensive reports. Let's get started!
@@ -117,7 +110,7 @@ Welcome to **Tournament Manager** – your ultimate tool for organizing and mana
 
 Before you begin, ensure you have met the following requirements:
 
-- Python 3.6+
+- Python 3.12+
 - `fpdf` library for PDF generation
 - `InquirerPy` library for interactive prompts
 
@@ -195,12 +188,6 @@ See also the list of [contributors](https://github.com/your-username/tournament-
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
-
-## 🎉 Acknowledgments
-
-- Hat tip to anyone whose code was used
-- Inspiration
-- etc
 
 Enjoy managing your tournaments with Chess Tournament! Let's make every move count! ♟️
 
