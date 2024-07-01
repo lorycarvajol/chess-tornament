@@ -70,5 +70,11 @@
         "first_name": "Hugo",
         "last_name": "Tzepower",
         "birthdate": "10-10-1999"
+    },
+    {
+        "id": 13,
+        "first_name": "Lilo",
+        "last_name": "Lolo",
+        "birthdate": "10-10-2000"
     }
 ]

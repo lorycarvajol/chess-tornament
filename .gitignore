@@ -63,3 +63,5 @@ rapport/
 # Data files
 !data/tournament_round.json
 !data/tournament_sessions.json
+
+flake8-report/

@@ -1,3 +1,5 @@
 InquirerPy==0.3.4
 fpdf==1.7.2
+flake8
+flake8-html
 
