@@ -1,10 +1,10 @@
+from datetime import datetime
 from InquirerPy import prompt
 from InquirerPy.utils import color_print
 from controllers.tournament_controller import TournamentController
 from controllers.tournament_session_controller import TournamentSessionController
 from controllers.player_controller import PlayerController
 import re
-from datetime import datetime
 
 # Initialisation des contrôleurs pour les tournois, les joueurs et les sessions de tournoi
 tournament_controller = TournamentController("data/tournaments.json")
@@ -116,7 +116,7 @@ def add_players_to_tournament():
         {
             "type": "checkbox",
             "name": "players",
-            "message": "Sélectionnez des joueurs pour ce tournoi ( utilisez 'espace' pour sélectionner, 'entrer' pour valider) :",
+            "message": "Sélectionnez des joueurs pour ce tournoi :",
             "choices": player_choices,
         }
     )["players"]
@@ -126,7 +126,6 @@ def add_players_to_tournament():
         return
 
     # Démarre une session de tournoi
-    session_controller = TournamentSessionController("data")
     session = session_controller.start_tournament_session(
         selected_tournament_id, selected_player_ids
     )
@@ -137,9 +136,38 @@ def add_players_to_tournament():
     )
 
     # Démarre les rounds du tournoi
-    session_controller.start_tournament_rounds(
-        session["id"], selected_player_ids, players
-    )
+    start_tournament_rounds(session["id"], selected_player_ids, players)
+
+
+def start_tournament_rounds(session_id, player_ids, players):
+    """
+    Démarre les rounds du tournoi et permet de sélectionner les vainqueurs des matchs.
+    """
+    while True:
+        player_scores, rounds, generate_report_flag = (
+            session_controller.round_model.start_tournament(
+                session_id, player_ids, players
+            )
+        )
+        if generate_report_flag:
+            generate_report(session_id)
+        else:
+            break
+    color_print([("green", f"Tournoi avec la session ID {session_id} terminé.")])
+
+
+def generate_report(session_id, final=False):
+    """
+    Génère un rapport PDF du tournoi.
+    """
+    color_print([("cyan", "Générer un rapport du tournoi.")])
+    session_controller.generate_pdf_report(session_id, replace_existing=final)
+    if final:
+        color_print(
+            [("green", f"Rapport final généré pour la session ID {session_id}.")]
+        )
+    else:
+        color_print([("green", f"Rapport généré pour la session ID {session_id}.")])
 
 
 def tournament_menu():
