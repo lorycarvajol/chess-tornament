@@ -230,90 +230,11 @@
     },
     {
         "id": 24,
-        "tournament_id": 1,
-        "player_ids": [
-            1,
-            2,
-            3
-        ],
-        "is_active": true
-    },
-    {
-        "id": 25,
-        "tournament_id": 6,
-        "player_ids": [
-            3,
-            4
-        ],
-        "is_active": true
-    },
-    {
-        "id": 26,
         "tournament_id": 2,
         "player_ids": [
             1,
             2,
             3
-        ],
-        "is_active": true
-    },
-    {
-        "id": 27,
-        "tournament_id": 1,
-        "player_ids": [
-            1,
-            2,
-            3
-        ],
-        "is_active": true
-    },
-    {
-        "id": 28,
-        "tournament_id": 2,
-        "player_ids": [
-            1,
-            2,
-            3
-        ],
-        "is_active": true
-    },
-    {
-        "id": 29,
-        "tournament_id": 1,
-        "player_ids": [
-            2,
-            3,
-            4
-        ],
-        "is_active": true
-    },
-    {
-        "id": 30,
-        "tournament_id": 1,
-        "player_ids": [
-            1,
-            2,
-            3
-        ],
-        "is_active": true
-    },
-    {
-        "id": 31,
-        "tournament_id": 1,
-        "player_ids": [
-            1,
-            2,
-            3
-        ],
-        "is_active": true
-    },
-    {
-        "id": 32,
-        "tournament_id": 2,
-        "player_ids": [
-            2,
-            3,
-            4
         ],
         "is_active": true
     }
